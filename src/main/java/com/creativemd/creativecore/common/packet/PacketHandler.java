@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 
-import com.creativemd.creativecore.core.CreativeCore;
+import com.creativemd.littletiles.LittleTiles;
 
 public class PacketHandler {
 
     public static void sendPacketToAllPlayers(CreativeCorePacket packet) {
-        CreativeCore.network.sendToAll(new CreativeMessageHandler(packet));
+        LittleTiles.network.sendToAll(new CreativeMessageHandler(packet));
     }
 
     public static void sendPacketToServer(CreativeCorePacket packet) {
-        CreativeCore.network.sendToServer(new CreativeMessageHandler(packet));
+        LittleTiles.network.sendToServer(new CreativeMessageHandler(packet));
     }
 
     public static void sendPacketsToAllPlayers(ArrayList<CreativeCorePacket> packets) {
@@ -23,7 +23,7 @@ public class PacketHandler {
     }
 
     public static void sendPacketToPlayer(CreativeCorePacket packet, EntityPlayerMP player) {
-        CreativeCore.network.sendTo(new CreativeMessageHandler(packet), player);
+        LittleTiles.network.sendTo(new CreativeMessageHandler(packet), player);
     }
 
 }

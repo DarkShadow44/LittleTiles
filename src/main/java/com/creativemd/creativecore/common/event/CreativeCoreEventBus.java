@@ -2,7 +2,7 @@ package com.creativemd.creativecore.common.event;
 
 import java.util.ArrayList;
 
-import com.creativemd.creativecore.core.CreativeCore;
+import com.creativemd.littletiles.LittleTiles;
 import com.n247s.api.eventapi.eventsystem.CallHandler;
 import com.n247s.api.eventapi.eventsystem.EventBus;
 import com.n247s.api.eventapi.eventsystem.EventType;
@@ -56,7 +56,7 @@ public class CreativeCoreEventBus extends EventBus {
                 this.EventList.put(eventClass, new CreativeCoreCallHandler(eventClass));
             return ((CreativeCoreCallHandler) this.EventList.get(eventClass)).CallInstances(eventType);
         } catch (Exception e) {
-            CreativeCore.logger.catching(e);
+            LittleTiles.logger.catching(e);
         }
         return false;
     }

@@ -17,7 +17,6 @@ import com.creativemd.creativecore.common.gui.IGuiCreator;
 import com.creativemd.creativecore.common.gui.SubGui;
 import com.creativemd.creativecore.common.packet.PacketHandler;
 import com.creativemd.creativecore.common.utils.ColorUtils;
-import com.creativemd.creativecore.core.CreativeCore;
 import com.creativemd.littletiles.LittleTiles;
 import com.creativemd.littletiles.common.gui.SubContainerColorTube;
 import com.creativemd.littletiles.common.gui.SubGuiColorTube;
@@ -102,7 +101,7 @@ public class ItemColorTube extends Item implements IGuiCreator {
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         if (!world.isRemote) {
-            player.openGui(CreativeCore.instance, 1, world, (int) player.posX, (int) player.posY, (int) player.posZ);
+            player.openGui(LittleTiles.instance, 1, world, (int) player.posX, (int) player.posY, (int) player.posZ);
         }
         return stack;
     }

@@ -17,7 +17,6 @@ import com.creativemd.creativecore.common.container.SubContainer;
 import com.creativemd.creativecore.common.gui.IGuiCreator;
 import com.creativemd.creativecore.common.gui.SubGui;
 import com.creativemd.creativecore.common.utils.CubeObject;
-import com.creativemd.creativecore.core.CreativeCore;
 import com.creativemd.littletiles.LittleTiles;
 import com.creativemd.littletiles.client.render.ITilesRenderer;
 import com.creativemd.littletiles.common.gui.SubContainerStructure;
@@ -50,7 +49,7 @@ public class ItemRecipe extends Item implements ITilesRenderer, IGuiCreator {
         if (!world.isRemote && !player.isSneaking()
                 && stack.stackTagCompound != null
                 && !stack.stackTagCompound.hasKey("x")) {
-            player.openGui(CreativeCore.instance, 1, world, (int) player.posX, (int) player.posY, (int) player.posZ);
+            player.openGui(LittleTiles.instance, 1, world, (int) player.posX, (int) player.posY, (int) player.posZ);
         }
         return stack;
     }

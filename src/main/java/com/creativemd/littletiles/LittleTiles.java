@@ -9,7 +9,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
 
-import com.creativemd.creativecore.common.packet.CreativeCorePacket;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.creativemd.creativecore.api.nei.NEIRecipeInfoHandler;
+import com.creativemd.creativecore.common.entity.EntitySit;
+import com.creativemd.creativecore.common.event.TickHandler;
+import com.creativemd.creativecore.common.gui.GuiHandler;
+import com.creativemd.creativecore.common.packet.*;
+import com.creativemd.creativecore.common.utils.stack.StackInfo;
 import com.creativemd.littletiles.common.blocks.BlockLTColored;
 import com.creativemd.littletiles.common.blocks.BlockTile;
 import com.creativemd.littletiles.common.blocks.ItemBlockColored;
@@ -45,7 +53,11 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = LittleTiles.modid, version = LittleTiles.version, name = "LittleTiles")
 public class LittleTiles {
@@ -78,8 +90,36 @@ public class LittleTiles {
 
     public static boolean isAngelicaLoaded;
 
+    public static final Logger logger = LogManager.getLogger(modid);
+
+    public static SimpleNetworkWrapper network;
+    public static TickHandler tickHandler = new TickHandler();
+
     @EventHandler
     public void Init(FMLInitializationEvent event) {
+        network = NetworkRegistry.INSTANCE.newSimpleChannel("CreativeMDPacket");
+        network.registerMessage(PacketReciever.class, CreativeMessageHandler.class, 0, Side.CLIENT);
+        network.registerMessage(PacketReciever.class, CreativeMessageHandler.class, 0, Side.SERVER);
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+
+        EntityRegistry.registerModEntity(EntitySit.class, "Sit", 0, this, 250, 250, true);
+
+        // Init Packets
+        CreativeCorePacket.registerPacket(GuiUpdatePacket.class, "guiupdatepacket");
+        CreativeCorePacket.registerPacket(GuiControlPacket.class, "guicontrolpacket");
+        CreativeCorePacket.registerPacket(ContainerControlUpdatePacket.class, "containercontrolpacket");
+        CreativeCorePacket.registerPacket(TEContainerPacket.class, "TEContainer");
+        CreativeCorePacket.registerPacket(GuiLayerPacket.class, "guilayerpacket");
+        CreativeCorePacket.registerPacket(OpenGuiPacket.class, "opengui");
+        CreativeCorePacket.registerPacket(BlockUpdatePacket.class, "blockupdatepacket");
+
+        FMLCommonHandler.instance().bus().register(tickHandler);
+
+        StackInfo.registerDefaultLoaders();
+
+        if (Loader.isModLoaded("NotEnoughItems") && FMLCommonHandler.instance().getEffectiveSide().isClient())
+            NEIRecipeInfoHandler.load();
+
         ForgeModContainer.fullBoundingBoxLadders = true;
 
         GameRegistry.registerItem(hammer, "hammer");

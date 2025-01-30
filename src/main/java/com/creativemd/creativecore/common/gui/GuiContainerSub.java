@@ -18,12 +18,11 @@ import org.lwjgl.opengl.GL11;
 import com.creativemd.creativecore.common.container.ContainerSub;
 import com.creativemd.creativecore.common.container.SubContainer;
 import com.creativemd.creativecore.common.gui.controls.GuiControl;
-import com.creativemd.creativecore.core.CreativeCore;
+import com.creativemd.littletiles.LittleTiles;
 
 public class GuiContainerSub extends GuiContainer {
 
-    public static final ResourceLocation background = new ResourceLocation(
-            CreativeCore.modid + ":textures/gui/GUI.png");
+    public static final ResourceLocation background = new ResourceLocation(LittleTiles.modid + ":textures/gui/GUI.png");
 
     protected ArrayList<SubGui> layers;
 
