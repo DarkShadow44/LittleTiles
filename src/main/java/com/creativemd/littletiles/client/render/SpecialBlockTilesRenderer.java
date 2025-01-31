@@ -20,7 +20,9 @@ import org.lwjgl.opengl.GL11;
 import com.creativemd.creativecore.common.utils.CubeObject;
 import com.creativemd.littletiles.client.LittleTilesClient;
 import com.creativemd.littletiles.common.tileentity.TileEntityLittleTiles;
+import com.creativemd.littletiles.common.utils.LittleTile;
 import com.creativemd.littletiles.common.utils.small.LittleTileVec;
+import com.creativemd.littletiles.utils.TileList;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -47,31 +49,13 @@ public class SpecialBlockTilesRenderer extends TileEntitySpecialRenderer
         TileEntity tileEntity = world.getTileEntity(x, y, z);
         if (tileEntity instanceof TileEntityLittleTiles) {
             TileEntityLittleTiles little = (TileEntityLittleTiles) tileEntity;
-            // long time = System.currentTimeMillis();
-            // System.out.println("Rendering " + little.tiles.size() + " tiles!");
-
-            LittleBlockRenderHelper.renderBlock(world, x, y, z, block, modelId, renderer, little);
-            // System.out.println("Rendered " + little.tiles.size() + " tiles! " + (System.currentTimeMillis()-time) + "
-            // ms");
+            TileList<LittleTile> tiles = little.getTiles();
+            for (LittleTile tile : tiles) {
+                ArrayList<CubeObject> cubes = tile.getRenderingCubes();
+                LittleTilesBlockRenderHelper.renderCubes(world, cubes, x, y, z, block, renderer, null);
+            }
         }
 
-        /*
-         * for (int i = 0; i < little.tiles.size(); i++) { ArrayList<CubeObject> cubes =
-         * little.tiles.get(i).getRenderingCubes(); //BlockTile.currentlyRenderedTile = little.tiles.get(i);
-         * BlockRenderHelper.renderCubes(world, cubes, x, y, z, block, renderer, null);
-         * //BlockTile.currentlyRenderedTile = null; /*for (int j = 0; j < cubes.size(); j++) { double minX =
-         * (double)(cubes.get(j).minX+8)/16D; double minY = (double)(cubes.get(j).minY+8)/16D; double minZ =
-         * (double)(cubes.get(j).minZ+8)/16D; double maxX = (double)(cubes.get(j).maxX+8)/16D; double maxY =
-         * (double)(cubes.get(j).maxY+8)/16D; double maxZ = (double)(cubes.get(j).maxZ+8)/16D;
-         * RenderHelper3D.renderBlocks.blockAccess = renderer.blockAccess;
-         * RenderHelper3D.renderBlocks.clearOverrideBlockTexture(); RenderHelper3D.renderBlocks.setRenderBounds(minX,
-         * minY, minZ, maxX, maxY, maxZ); if(cubes.get(j).meta != -1) RenderHelper3D.renderBlocks.meta =
-         * cubes.get(j).meta; //else //RenderHelper3D.renderBlocks.meta = little.tiles.get(i).meta;
-         * RenderHelper3D.renderBlocks.lockBlockBounds = true; if(cubes.get(j).block != null)
-         * RenderHelper3D.renderBlocks.renderBlockAllFaces(cubes.get(j).block, x, y, z); //else
-         * //RenderHelper3D.renderBlocks.renderBlockAllFaces(little.tiles.get(i).block, x, y, z);
-         * RenderHelper3D.renderBlocks.lockBlockBounds = false; } } }
-         */
         return true;
     }
 
