@@ -1,7 +1,6 @@
 package com.creativemd.creativecore.client.rendering;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.util.IIcon;
