@@ -132,9 +132,6 @@ public abstract class MixinRenderBlocks {
     @Shadow
     public abstract int getAoBrightness(int p_147778_1_, int p_147778_2_, int p_147778_3_, int p_147778_4_);
 
-    @Shadow
-    public static boolean fancyGrass = true;
-
     @Overwrite
     public boolean renderStandardBlockWithAmbientOcclusionPartial(Block block, int x, int y, int z, float colorR, float colorG, float colorB)
     {
@@ -477,23 +474,6 @@ public abstract class MixinRenderBlocks {
             iicon = this.getBlockIcon(block, this.blockAccess, x, y, z, 2);
             this.renderFaceZNeg(block, (double)x, (double)y, (double)z, iicon);
 
-            if (fancyGrass && iicon.getIconName().equals("grass_side") && !this.hasOverrideBlockTexture())
-            {
-                this.colorRedTopLeft *= colorR;
-                this.colorRedBottomLeft *= colorR;
-                this.colorRedBottomRight *= colorR;
-                this.colorRedTopRight *= colorR;
-                this.colorGreenTopLeft *= colorG;
-                this.colorGreenBottomLeft *= colorG;
-                this.colorGreenBottomRight *= colorG;
-                this.colorGreenTopRight *= colorG;
-                this.colorBlueTopLeft *= colorB;
-                this.colorBlueBottomLeft *= colorB;
-                this.colorBlueBottomRight *= colorB;
-                this.colorBlueTopRight *= colorB;
-                this.renderFaceZNeg(block, (double)x, (double)y, (double)z, BlockGrass.getIconSideOverlay());
-            }
-
             flag = true;
         }
 
@@ -601,23 +581,6 @@ public abstract class MixinRenderBlocks {
             this.colorBlueTopRight *= f6;
             iicon = this.getBlockIcon(block, this.blockAccess, x, y, z, 3);
             this.renderFaceZPos(block, (double)x, (double)y, (double)z, iicon);
-
-            if (fancyGrass && iicon.getIconName().equals("grass_side") && !this.hasOverrideBlockTexture())
-            {
-                this.colorRedTopLeft *= colorR;
-                this.colorRedBottomLeft *= colorR;
-                this.colorRedBottomRight *= colorR;
-                this.colorRedTopRight *= colorR;
-                this.colorGreenTopLeft *= colorG;
-                this.colorGreenBottomLeft *= colorG;
-                this.colorGreenBottomRight *= colorG;
-                this.colorGreenTopRight *= colorG;
-                this.colorBlueTopLeft *= colorB;
-                this.colorBlueBottomLeft *= colorB;
-                this.colorBlueBottomRight *= colorB;
-                this.colorBlueTopRight *= colorB;
-                this.renderFaceZPos(block, (double)x, (double)y, (double)z, BlockGrass.getIconSideOverlay());
-            }
 
             flag = true;
         }
@@ -727,23 +690,6 @@ public abstract class MixinRenderBlocks {
             iicon = this.getBlockIcon(block, this.blockAccess, x, y, z, 4);
             this.renderFaceXNeg(block, (double)x, (double)y, (double)z, iicon);
 
-            if (fancyGrass && iicon.getIconName().equals("grass_side") && !this.hasOverrideBlockTexture())
-            {
-                this.colorRedTopLeft *= colorR;
-                this.colorRedBottomLeft *= colorR;
-                this.colorRedBottomRight *= colorR;
-                this.colorRedTopRight *= colorR;
-                this.colorGreenTopLeft *= colorG;
-                this.colorGreenBottomLeft *= colorG;
-                this.colorGreenBottomRight *= colorG;
-                this.colorGreenTopRight *= colorG;
-                this.colorBlueTopLeft *= colorB;
-                this.colorBlueBottomLeft *= colorB;
-                this.colorBlueBottomRight *= colorB;
-                this.colorBlueTopRight *= colorB;
-                this.renderFaceXNeg(block, (double)x, (double)y, (double)z, BlockGrass.getIconSideOverlay());
-            }
-
             flag = true;
         }
 
@@ -851,23 +797,6 @@ public abstract class MixinRenderBlocks {
             this.colorBlueTopRight *= f6;
             iicon = this.getBlockIcon(block, this.blockAccess, x, y, z, 5);
             this.renderFaceXPos(block, (double)x, (double)y, (double)z, iicon);
-
-            if (fancyGrass && iicon.getIconName().equals("grass_side") && !this.hasOverrideBlockTexture())
-            {
-                this.colorRedTopLeft *= colorR;
-                this.colorRedBottomLeft *= colorR;
-                this.colorRedBottomRight *= colorR;
-                this.colorRedTopRight *= colorR;
-                this.colorGreenTopLeft *= colorG;
-                this.colorGreenBottomLeft *= colorG;
-                this.colorGreenBottomRight *= colorG;
-                this.colorGreenTopRight *= colorG;
-                this.colorBlueTopLeft *= colorB;
-                this.colorBlueBottomLeft *= colorB;
-                this.colorBlueBottomRight *= colorB;
-                this.colorBlueTopRight *= colorB;
-                this.renderFaceXPos(block, (double)x, (double)y, (double)z, BlockGrass.getIconSideOverlay());
-            }
 
             flag = true;
         }
