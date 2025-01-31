@@ -417,8 +417,7 @@ public class TileEntityLittleTiles extends TileEntity {
     private int lastMaxLightValue;
 
     public int getMaxLightValue() {
-        if (!needsLightUpdate)
-        {
+        if (!needsLightUpdate) {
             return lastMaxLightValue;
         }
         if (!first) return 0;

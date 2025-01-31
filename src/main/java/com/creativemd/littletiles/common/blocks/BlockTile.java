@@ -249,7 +249,7 @@ public class BlockTile extends BlockContainer {
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
         try { // Why try? because the number of tiles can change while this method is called
             if (loadTileEntity(world, x, y, z)) {
-               return tempEntity.getMaxLightValue();
+                return tempEntity.getMaxLightValue();
             }
             return 0;
         } catch (Exception e) {
