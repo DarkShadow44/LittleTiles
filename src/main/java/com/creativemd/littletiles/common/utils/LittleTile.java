@@ -364,9 +364,6 @@ public abstract class LittleTile {
     }
 
     @SideOnly(Side.CLIENT)
-    public abstract boolean canBlockBeThreaded();
-
-    @SideOnly(Side.CLIENT)
     public abstract ArrayList<CubeObject> getRenderingCubes();
 
     @SideOnly(Side.CLIENT)
