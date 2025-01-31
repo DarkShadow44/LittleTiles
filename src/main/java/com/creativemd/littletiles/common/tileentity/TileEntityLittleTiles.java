@@ -16,7 +16,6 @@ import net.minecraft.util.Vec3;
 
 import com.creativemd.creativecore.common.utils.CubeObject;
 import com.creativemd.littletiles.LittleTiles;
-import com.creativemd.littletiles.client.render.LittleBlockVertex;
 import com.creativemd.littletiles.common.structure.LittleStructure;
 import com.creativemd.littletiles.common.utils.LittleTile;
 import com.creativemd.littletiles.common.utils.small.LittleTileBox;
@@ -45,14 +44,6 @@ public class TileEntityLittleTiles extends TileEntity {
     }
 
     public ArrayList<LittleTile> customRenderingTiles = new ArrayList<>();
-
-    public boolean needsRenderingUpdate;
-
-    public int lightValue;
-
-    public ArrayList<LittleBlockVertex> lastRendered;
-
-    public boolean isRendering;
 
     public boolean needFullRenderUpdate;
 
@@ -342,14 +333,6 @@ public class TileEntityLittleTiles extends TileEntity {
 
     @Override
     public void updateEntity() {
-        if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
-            if (needsRenderingUpdate) {
-                updateRender();
-                // System.out.println("Chunk update!");
-                needsRenderingUpdate = false;
-            }
-        }
-
         for (LittleTile tile : tiles) {
             tile.updateEntity();
         }

@@ -6,7 +6,6 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.BlockAir;
-import net.minecraft.block.BlockGrass;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -145,12 +144,6 @@ public class LittleTileBlock extends LittleTile {
             return block == ((LittleTileBlock) tile).block && meta == ((LittleTileBlock) tile).meta;
         }
         return false;
-    }
-
-    @Override
-    public boolean canBlockBeThreaded() {
-        if (LittleTiles.isAngelicaLoaded) return false;
-        return block.getRenderType() == 0 && !(block instanceof BlockGrass);
     }
 
     @Override
