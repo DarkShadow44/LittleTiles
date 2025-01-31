@@ -49,14 +49,8 @@ public abstract class MixinRenderBlocks {
     @Shadow   public float aoLightValueScratchXYZNPN;
     /** Used as a scratch variable for ambient occlusion on the north/top/west corner. */
     @Shadow   public float aoLightValueScratchXYZNPP;
-    /** Used as a scratch variable for ambient occlusion between the top face and the east face. */
-    @Shadow   public float aoLightValueScratchYZPN;
     /** Used as a scratch variable for ambient occlusion on the south/top/east corner. */
     @Shadow   public float aoLightValueScratchXYZPPN;
-    /** Used as a scratch variable for ambient occlusion between the top face and the south face. */
-    @Shadow   public float aoLightValueScratchXYPP;
-    /** Used as a scratch variable for ambient occlusion between the top face and the west face. */
-    @Shadow    public float aoLightValueScratchYZPP;
     /** Used as a scratch variable for ambient occlusion on the south/top/west corner. */
     @Shadow   public float aoLightValueScratchXYZPPP;
     /** Ambient occlusion brightness XYZNNN */
@@ -279,9 +273,6 @@ public abstract class MixinRenderBlocks {
                 ++y;
             }
 
-            this.aoLightValueScratchXYPP = this.blockAccess.getBlock(x + 1, y, z).getAmbientOcclusionLightValue();
-            this.aoLightValueScratchYZPN = this.blockAccess.getBlock(x, y, z - 1).getAmbientOcclusionLightValue();
-            this.aoLightValueScratchYZPP = this.blockAccess.getBlock(x, y, z + 1).getAmbientOcclusionLightValue();
             flag2 = this.blockAccess.getBlock(x + 1, y + 1, z).getCanBlockGrass();
             flag3 = this.blockAccess.getBlock(x - 1, y + 1, z).getCanBlockGrass();
             flag4 = this.blockAccess.getBlock(x, y + 1, z + 1).getCanBlockGrass();
@@ -300,7 +291,7 @@ public abstract class MixinRenderBlocks {
 
             if (!flag5 && !flag2)
             {
-                this.aoLightValueScratchXYZPPN = this.aoLightValueScratchXYPP;
+                this.aoLightValueScratchXYZPPN = aoLightXPos;
                 this.aoBrightnessXYZPPN = brightnessXPos;
             }
             else
@@ -322,7 +313,7 @@ public abstract class MixinRenderBlocks {
 
             if (!flag4 && !flag2)
             {
-                this.aoLightValueScratchXYZPPP = this.aoLightValueScratchXYPP;
+                this.aoLightValueScratchXYZPPP = aoLightXPos;
                 this.aoBrightnessXYZPPP = brightnessXPos;
             }
             else
@@ -344,10 +335,10 @@ public abstract class MixinRenderBlocks {
             }
 
             f7 = this.blockAccess.getBlock(x, y + 1, z).getAmbientOcclusionLightValue();
-            f6 = (this.aoLightValueScratchXYZNPP + aoLightXNeg + this.aoLightValueScratchYZPP + f7) / 4.0F;
-            f3 = (this.aoLightValueScratchYZPP + f7 + this.aoLightValueScratchXYZPPP + this.aoLightValueScratchXYPP) / 4.0F;
-            f4 = (f7 + this.aoLightValueScratchYZPN + this.aoLightValueScratchXYPP + this.aoLightValueScratchXYZPPN) / 4.0F;
-            f5 = (aoLightXNeg + this.aoLightValueScratchXYZNPN + f7 + this.aoLightValueScratchYZPN) / 4.0F;
+            f6 = (this.aoLightValueScratchXYZNPP + aoLightXNeg + aoLightZPos + f7) / 4.0F;
+            f3 = (aoLightZPos + f7 + this.aoLightValueScratchXYZPPP + aoLightXPos) / 4.0F;
+            f4 = (f7 + aoLightZNeg + aoLightXPos + this.aoLightValueScratchXYZPPN) / 4.0F;
+            f5 = (aoLightXNeg + this.aoLightValueScratchXYZNPN + f7 + aoLightZNeg) / 4.0F;
             this.brightnessTopRight = this.getAoBrightness(this.aoBrightnessXYZNPP, brightnessXNeg, brightnessZPos, i1);
             this.brightnessTopLeft = this.getAoBrightness(brightnessZPos, this.aoBrightnessXYZPPP, brightnessXPos, i1);
             this.brightnessBottomLeft = this.getAoBrightness(brightnessZNeg, brightnessXPos, this.aoBrightnessXYZPPN, i1);
@@ -388,7 +379,6 @@ public abstract class MixinRenderBlocks {
                 --z;
             }
 
-            this.aoLightValueScratchYZPN = this.blockAccess.getBlock(x, y + 1, z).getAmbientOcclusionLightValue();
             flag2 = this.blockAccess.getBlock(x + 1, y, z - 1).getCanBlockGrass();
             flag3 = this.blockAccess.getBlock(x - 1, y, z - 1).getCanBlockGrass();
             flag4 = this.blockAccess.getBlock(x, y + 1, z - 1).getCanBlockGrass();
@@ -451,8 +441,8 @@ public abstract class MixinRenderBlocks {
             }
 
             f7 = this.blockAccess.getBlock(x, y, z - 1).getAmbientOcclusionLightValue();
-            f8 = (aoLightXNeg + this.aoLightValueScratchXYZNPN + f7 + this.aoLightValueScratchYZPN) / 4.0F;
-            f9 = (f7 + this.aoLightValueScratchYZPN + aoLightXPos + this.aoLightValueScratchXYZPPN) / 4.0F;
+            f8 = (aoLightXNeg + this.aoLightValueScratchXYZNPN + f7 + aoLightYPos) / 4.0F;
+            f9 = (f7 + aoLightYPos + aoLightXPos + this.aoLightValueScratchXYZPPN) / 4.0F;
             f10 = (aoLightYNeg + f7 + this.aoLightValueScratchXYZPNN + aoLightXPos) / 4.0F;
             f11 = (this.aoLightValueScratchXYZNNN + aoLightXNeg + aoLightYNeg + f7) / 4.0F;
             f3 = (float)((double)f8 * this.renderMaxY * (1.0D - this.renderMinX) + (double)f9 * this.renderMaxY * this.renderMinX + (double)f10 * (1.0D - this.renderMaxY) * this.renderMinX + (double)f11 * (1.0D - this.renderMaxY) * (1.0D - this.renderMinX));
@@ -514,7 +504,6 @@ public abstract class MixinRenderBlocks {
                 ++z;
             }
 
-            this.aoLightValueScratchYZPP = this.blockAccess.getBlock(x, y + 1, z).getAmbientOcclusionLightValue();
             flag2 = this.blockAccess.getBlock(x + 1, y, z + 1).getCanBlockGrass();
             flag3 = this.blockAccess.getBlock(x - 1, y, z + 1).getCanBlockGrass();
             flag4 = this.blockAccess.getBlock(x, y + 1, z + 1).getCanBlockGrass();
@@ -577,8 +566,8 @@ public abstract class MixinRenderBlocks {
             }
 
             f7 = this.blockAccess.getBlock(x, y, z + 1).getAmbientOcclusionLightValue();
-            f8 = (aoLightXNeg + this.aoLightValueScratchXYZNPP + f7 + this.aoLightValueScratchYZPP) / 4.0F;
-            f9 = (f7 + this.aoLightValueScratchYZPP + aoLightXPos + this.aoLightValueScratchXYZPPP) / 4.0F;
+            f8 = (aoLightXNeg + this.aoLightValueScratchXYZNPP + f7 + aoLightYPos) / 4.0F;
+            f9 = (f7 + aoLightYPos + aoLightXPos + this.aoLightValueScratchXYZPPP) / 4.0F;
             f10 = (aoLightYNeg + f7 + this.aoLightValueScratchXYZPNP + aoLightXPos) / 4.0F;
             f11 = (this.aoLightValueScratchXYZNNP + aoLightXNeg + aoLightYNeg + f7) / 4.0F;
             f3 = (float)((double)f8 * this.renderMaxY * (1.0D - this.renderMinX) + (double)f9 * this.renderMaxY * this.renderMinX + (double)f10 * (1.0D - this.renderMaxY) * this.renderMinX + (double)f11 * (1.0D - this.renderMaxY) * (1.0D - this.renderMinX));
@@ -765,7 +754,6 @@ public abstract class MixinRenderBlocks {
                 ++x;
             }
 
-            this.aoLightValueScratchXYPP = this.blockAccess.getBlock(x, y + 1, z).getAmbientOcclusionLightValue();
             flag2 = this.blockAccess.getBlock(x + 1, y + 1, z).getCanBlockGrass();
             flag3 = this.blockAccess.getBlock(x + 1, y - 1, z).getCanBlockGrass();
             flag4 = this.blockAccess.getBlock(x + 1, y, z + 1).getCanBlockGrass();
@@ -830,8 +818,8 @@ public abstract class MixinRenderBlocks {
             f7 = this.blockAccess.getBlock(x + 1, y, z).getAmbientOcclusionLightValue();
             f8 = (aoLightYNeg + this.aoLightValueScratchXYZPNP + f7 + aoLightZPos) / 4.0F;
             f9 = (this.aoLightValueScratchXYZPNN + aoLightYNeg + aoLightZNeg + f7) / 4.0F;
-            f10 = (aoLightZNeg + f7 + this.aoLightValueScratchXYZPPN + this.aoLightValueScratchXYPP) / 4.0F;
-            f11 = (f7 + aoLightZPos + this.aoLightValueScratchXYPP + this.aoLightValueScratchXYZPPP) / 4.0F;
+            f10 = (aoLightZNeg + f7 + this.aoLightValueScratchXYZPPN + aoLightYPos) / 4.0F;
+            f11 = (f7 + aoLightZPos + aoLightYPos + this.aoLightValueScratchXYZPPP) / 4.0F;
             f3 = (float)((double)f8 * (1.0D - this.renderMinY) * this.renderMaxZ + (double)f9 * (1.0D - this.renderMinY) * (1.0D - this.renderMaxZ) + (double)f10 * this.renderMinY * (1.0D - this.renderMaxZ) + (double)f11 * this.renderMinY * this.renderMaxZ);
             f4 = (float)((double)f8 * (1.0D - this.renderMinY) * this.renderMinZ + (double)f9 * (1.0D - this.renderMinY) * (1.0D - this.renderMinZ) + (double)f10 * this.renderMinY * (1.0D - this.renderMinZ) + (double)f11 * this.renderMinY * this.renderMinZ);
             f5 = (float)((double)f8 * (1.0D - this.renderMaxY) * this.renderMinZ + (double)f9 * (1.0D - this.renderMaxY) * (1.0D - this.renderMinZ) + (double)f10 * this.renderMaxY * (1.0D - this.renderMinZ) + (double)f11 * this.renderMaxY * this.renderMinZ);
