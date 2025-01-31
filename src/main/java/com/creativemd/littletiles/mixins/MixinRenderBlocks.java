@@ -144,10 +144,6 @@ public abstract class MixinRenderBlocks {
         int l = block.getMixedBrightnessForBlock(this.blockAccess, x, y, z);
         Tessellator tessellator = Tessellator.instance;
 
-        boolean flag2;
-        boolean flag3;
-        boolean flag4;
-        boolean flag5;
         int i1;
         float f7;
 
@@ -172,54 +168,17 @@ public abstract class MixinRenderBlocks {
                 --y;
             }
 
-            flag2 = this.blockAccess.getBlock(x + 1, y - 1, z).getCanBlockGrass();
-            flag3 = this.blockAccess.getBlock(x - 1, y - 1, z).getCanBlockGrass();
-            flag4 = this.blockAccess.getBlock(x, y - 1, z + 1).getCanBlockGrass();
-            flag5 = this.blockAccess.getBlock(x, y - 1, z - 1).getCanBlockGrass();
+            this.aoLightValueScratchXYZNNN = this.blockAccess.getBlock(x - 1, y, z - 1).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y, z - 1);
 
-            if (!flag5 && !flag3)
-            {
-                this.aoLightValueScratchXYZNNN = aoLightXNeg;
-                this.aoBrightnessXYZNNN = brightnessXNeg;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZNNN = this.blockAccess.getBlock(x - 1, y, z - 1).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y, z - 1);
-            }
+            this.aoLightValueScratchXYZNNP = this.blockAccess.getBlock(x - 1, y, z + 1).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y, z + 1);
 
-            if (!flag4 && !flag3)
-            {
-                this.aoLightValueScratchXYZNNP = aoLightXNeg;
-                this.aoBrightnessXYZNNP = brightnessXNeg;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZNNP = this.blockAccess.getBlock(x - 1, y, z + 1).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y, z + 1);
-            }
+            this.aoLightValueScratchXYZPNN = this.blockAccess.getBlock(x + 1, y, z - 1).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z - 1);
 
-            if (!flag5 && !flag2)
-            {
-                this.aoLightValueScratchXYZPNN = aoLightXPos;
-                this.aoBrightnessXYZPNN = brightnessXPos;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZPNN = this.blockAccess.getBlock(x + 1, y, z - 1).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z - 1);
-            }
-
-            if (!flag4 && !flag2)
-            {
-                this.aoLightValueScratchXYZPNP = aoLightXPos;
-                this.aoBrightnessXYZPNP = brightnessXPos;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZPNP = this.blockAccess.getBlock(x + 1, y, z + 1).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z + 1);
-            }
+            this.aoLightValueScratchXYZPNP = this.blockAccess.getBlock(x + 1, y, z + 1).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z + 1);
 
             if (this.renderMinY <= 0.0D)
             {
@@ -270,54 +229,17 @@ public abstract class MixinRenderBlocks {
                 ++y;
             }
 
-            flag2 = this.blockAccess.getBlock(x + 1, y + 1, z).getCanBlockGrass();
-            flag3 = this.blockAccess.getBlock(x - 1, y + 1, z).getCanBlockGrass();
-            flag4 = this.blockAccess.getBlock(x, y + 1, z + 1).getCanBlockGrass();
-            flag5 = this.blockAccess.getBlock(x, y + 1, z - 1).getCanBlockGrass();
+            this.aoLightValueScratchXYZNPN = this.blockAccess.getBlock(x - 1, y, z - 1).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y, z - 1);
 
-            if (!flag5 && !flag3)
-            {
-                this.aoLightValueScratchXYZNPN = aoLightXNeg;
-                this.aoBrightnessXYZNPN = brightnessXNeg;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZNPN = this.blockAccess.getBlock(x - 1, y, z - 1).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y, z - 1);
-            }
+            this.aoLightValueScratchXYZPPN = this.blockAccess.getBlock(x + 1, y, z - 1).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z - 1);
 
-            if (!flag5 && !flag2)
-            {
-                this.aoLightValueScratchXYZPPN = aoLightXPos;
-                this.aoBrightnessXYZPPN = brightnessXPos;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZPPN = this.blockAccess.getBlock(x + 1, y, z - 1).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z - 1);
-            }
+            this.aoLightValueScratchXYZNPP = this.blockAccess.getBlock(x - 1, y, z + 1).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y, z + 1);
 
-            if (!flag4 && !flag3)
-            {
-                this.aoLightValueScratchXYZNPP = aoLightXNeg;
-                this.aoBrightnessXYZNPP = brightnessXNeg;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZNPP = this.blockAccess.getBlock(x - 1, y, z + 1).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y, z + 1);
-            }
-
-            if (!flag4 && !flag2)
-            {
-                this.aoLightValueScratchXYZPPP = aoLightXPos;
-                this.aoBrightnessXYZPPP = brightnessXPos;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZPPP = this.blockAccess.getBlock(x + 1, y, z + 1).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z + 1);
-            }
+            this.aoLightValueScratchXYZPPP = this.blockAccess.getBlock(x + 1, y, z + 1).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z + 1);
 
             if (this.renderMaxY >= 1.0D)
             {
@@ -376,54 +298,18 @@ public abstract class MixinRenderBlocks {
                 --z;
             }
 
-            flag2 = this.blockAccess.getBlock(x + 1, y, z - 1).getCanBlockGrass();
-            flag3 = this.blockAccess.getBlock(x - 1, y, z - 1).getCanBlockGrass();
-            flag4 = this.blockAccess.getBlock(x, y + 1, z - 1).getCanBlockGrass();
-            flag5 = this.blockAccess.getBlock(x, y - 1, z - 1).getCanBlockGrass();
 
-            if (!flag3 && !flag5)
-            {
-                this.aoLightValueScratchXYZNNN = aoLightXNeg;
-                this.aoBrightnessXYZNNN = brightnessXNeg;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZNNN = this.blockAccess.getBlock(x - 1, y - 1, z).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y - 1, z);
-            }
+            this.aoLightValueScratchXYZNNN = this.blockAccess.getBlock(x - 1, y - 1, z).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y - 1, z);
 
-            if (!flag3 && !flag4)
-            {
-                this.aoLightValueScratchXYZNPN = aoLightXNeg;
-                this.aoBrightnessXYZNPN = brightnessXNeg;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZNPN = this.blockAccess.getBlock(x - 1, y + 1, z).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y + 1, z);
-            }
+            this.aoLightValueScratchXYZNPN = this.blockAccess.getBlock(x - 1, y + 1, z).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y + 1, z);
 
-            if (!flag2 && !flag5)
-            {
-                this.aoLightValueScratchXYZPNN = aoLightXPos;
-                this.aoBrightnessXYZPNN = brightnessXPos;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZPNN = this.blockAccess.getBlock(x + 1, y - 1, z).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y - 1, z);
-            }
+            this.aoLightValueScratchXYZPNN = this.blockAccess.getBlock(x + 1, y - 1, z).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y - 1, z);
 
-            if (!flag2 && !flag4)
-            {
-                this.aoLightValueScratchXYZPPN = aoLightXPos;
-                this.aoBrightnessXYZPPN = brightnessXPos;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZPPN = this.blockAccess.getBlock(x + 1, y + 1, z).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y + 1, z);
-            }
+            this.aoLightValueScratchXYZPPN = this.blockAccess.getBlock(x + 1, y + 1, z).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y + 1, z);
 
             if (this.renderMinZ <= 0.0D)
             {
@@ -484,54 +370,18 @@ public abstract class MixinRenderBlocks {
                 ++z;
             }
 
-            flag2 = this.blockAccess.getBlock(x + 1, y, z + 1).getCanBlockGrass();
-            flag3 = this.blockAccess.getBlock(x - 1, y, z + 1).getCanBlockGrass();
-            flag4 = this.blockAccess.getBlock(x, y + 1, z + 1).getCanBlockGrass();
-            flag5 = this.blockAccess.getBlock(x, y - 1, z + 1).getCanBlockGrass();
 
-            if (!flag3 && !flag5)
-            {
-                this.aoLightValueScratchXYZNNP = aoLightXNeg;
-                this.aoBrightnessXYZNNP = brightnessXNeg;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZNNP = this.blockAccess.getBlock(x - 1, y - 1, z).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y - 1, z);
-            }
+            this.aoLightValueScratchXYZNNP = this.blockAccess.getBlock(x - 1, y - 1, z).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y - 1, z);
 
-            if (!flag3 && !flag4)
-            {
-                this.aoLightValueScratchXYZNPP = aoLightXNeg;
-                this.aoBrightnessXYZNPP = brightnessXNeg;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZNPP = this.blockAccess.getBlock(x - 1, y + 1, z).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y + 1, z);
-            }
+            this.aoLightValueScratchXYZNPP = this.blockAccess.getBlock(x - 1, y + 1, z).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y + 1, z);
 
-            if (!flag2 && !flag5)
-            {
-                this.aoLightValueScratchXYZPNP = aoLightXPos;
-                this.aoBrightnessXYZPNP = brightnessXPos;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZPNP = this.blockAccess.getBlock(x + 1, y - 1, z).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y - 1, z);
-            }
+            this.aoLightValueScratchXYZPNP = this.blockAccess.getBlock(x + 1, y - 1, z).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y - 1, z);
 
-            if (!flag2 && !flag4)
-            {
-                this.aoLightValueScratchXYZPPP = aoLightXPos;
-                this.aoBrightnessXYZPPP = brightnessXPos;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZPPP = this.blockAccess.getBlock(x + 1, y + 1, z).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y + 1, z);
-            }
+            this.aoLightValueScratchXYZPPP = this.blockAccess.getBlock(x + 1, y + 1, z).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y + 1, z);
 
             if (this.renderMaxZ >= 1.0D)
             {
@@ -592,54 +442,17 @@ public abstract class MixinRenderBlocks {
                 --x;
             }
 
-            flag2 = this.blockAccess.getBlock(x - 1, y + 1, z).getCanBlockGrass();
-            flag3 = this.blockAccess.getBlock(x - 1, y - 1, z).getCanBlockGrass();
-            flag4 = this.blockAccess.getBlock(x - 1, y, z - 1).getCanBlockGrass();
-            flag5 = this.blockAccess.getBlock(x - 1, y, z + 1).getCanBlockGrass();
+            this.aoLightValueScratchXYZNNN = this.blockAccess.getBlock(x, y - 1, z - 1).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(this.blockAccess, x, y - 1, z - 1);
 
-            if (!flag4 && !flag3)
-            {
-                this.aoLightValueScratchXYZNNN = aoLightZNeg;
-                this.aoBrightnessXYZNNN = brightnessZNeg;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZNNN = this.blockAccess.getBlock(x, y - 1, z - 1).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(this.blockAccess, x, y - 1, z - 1);
-            }
+            this.aoLightValueScratchXYZNNP = this.blockAccess.getBlock(x, y - 1, z + 1).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(this.blockAccess, x, y - 1, z + 1);
 
-            if (!flag5 && !flag3)
-            {
-                this.aoLightValueScratchXYZNNP = aoLightZPos;
-                this.aoBrightnessXYZNNP = brightnessZPos;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZNNP = this.blockAccess.getBlock(x, y - 1, z + 1).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(this.blockAccess, x, y - 1, z + 1);
-            }
+            this.aoLightValueScratchXYZNPN = this.blockAccess.getBlock(x, y + 1, z - 1).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z - 1);
 
-            if (!flag4 && !flag2)
-            {
-                this.aoLightValueScratchXYZNPN = aoLightZNeg;
-                this.aoBrightnessXYZNPN = brightnessZNeg;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZNPN = this.blockAccess.getBlock(x, y + 1, z - 1).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z - 1);
-            }
-
-            if (!flag5 && !flag2)
-            {
-                this.aoLightValueScratchXYZNPP = aoLightZPos;
-                this.aoBrightnessXYZNPP = brightnessZPos;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZNPP = this.blockAccess.getBlock(x, y + 1, z + 1).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z + 1);
-            }
+            this.aoLightValueScratchXYZNPP = this.blockAccess.getBlock(x, y + 1, z + 1).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z + 1);
 
             if (this.renderMinX <= 0.0D)
             {
@@ -700,54 +513,17 @@ public abstract class MixinRenderBlocks {
                 ++x;
             }
 
-            flag2 = this.blockAccess.getBlock(x + 1, y + 1, z).getCanBlockGrass();
-            flag3 = this.blockAccess.getBlock(x + 1, y - 1, z).getCanBlockGrass();
-            flag4 = this.blockAccess.getBlock(x + 1, y, z + 1).getCanBlockGrass();
-            flag5 = this.blockAccess.getBlock(x + 1, y, z - 1).getCanBlockGrass();
+            this.aoLightValueScratchXYZPNN = this.blockAccess.getBlock(x, y - 1, z - 1).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(this.blockAccess, x, y - 1, z - 1);
 
-            if (!flag3 && !flag5)
-            {
-                this.aoLightValueScratchXYZPNN = aoLightZNeg;
-                this.aoBrightnessXYZPNN = brightnessZNeg;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZPNN = this.blockAccess.getBlock(x, y - 1, z - 1).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(this.blockAccess, x, y - 1, z - 1);
-            }
+            this.aoLightValueScratchXYZPNP = this.blockAccess.getBlock(x, y - 1, z + 1).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(this.blockAccess, x, y - 1, z + 1);
 
-            if (!flag3 && !flag4)
-            {
-                this.aoLightValueScratchXYZPNP = aoLightZPos;
-                this.aoBrightnessXYZPNP = brightnessZPos;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZPNP = this.blockAccess.getBlock(x, y - 1, z + 1).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(this.blockAccess, x, y - 1, z + 1);
-            }
+            this.aoLightValueScratchXYZPPN = this.blockAccess.getBlock(x, y + 1, z - 1).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z - 1);
 
-            if (!flag2 && !flag5)
-            {
-                this.aoLightValueScratchXYZPPN = aoLightZNeg;
-                this.aoBrightnessXYZPPN = brightnessZNeg;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZPPN = this.blockAccess.getBlock(x, y + 1, z - 1).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z - 1);
-            }
-
-            if (!flag2 && !flag4)
-            {
-                this.aoLightValueScratchXYZPPP = aoLightZPos;
-                this.aoBrightnessXYZPPP = brightnessZPos;
-            }
-            else
-            {
-                this.aoLightValueScratchXYZPPP = this.blockAccess.getBlock(x, y + 1, z + 1).getAmbientOcclusionLightValue();
-                this.aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z + 1);
-            }
+            this.aoLightValueScratchXYZPPP = this.blockAccess.getBlock(x, y + 1, z + 1).getAmbientOcclusionLightValue();
+            this.aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z + 1);
 
             if (this.renderMaxX >= 1.0D)
             {
