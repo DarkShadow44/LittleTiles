@@ -425,7 +425,6 @@ public class BlockTile extends BlockContainer {
     @Override
     public void onNeighborChange(IBlockAccess world, int x, int y, int z, int tileX, int tileY, int tileZ) {
         if (loadTileEntity(world, x, y, z)) {
-            // tempEntity.markFullRenderUpdate();
             for (LittleTile tile : tempEntity.getTiles()) {
                 tile.onNeighborChangeOutside();
             }
@@ -435,7 +434,6 @@ public class BlockTile extends BlockContainer {
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         if (loadTileEntity(world, x, y, z)) {
-            // tempEntity.markFullRenderUpdate();
             for (LittleTile tile : tempEntity.getTiles()) {
                 tile.onNeighborChangeOutside();
             }

@@ -45,13 +45,6 @@ public class TileEntityLittleTiles extends TileEntity {
 
     public ArrayList<LittleTile> customRenderingTiles = new ArrayList<>();
 
-    public boolean needFullRenderUpdate;
-
-    public void markFullRenderUpdate() {
-        this.needFullRenderUpdate = true;
-        updateRender();
-    }
-
     public boolean needFullUpdate = false;
 
     public boolean removeTile(LittleTile tile) {
@@ -89,7 +82,7 @@ public class TileEntityLittleTiles extends TileEntity {
     }
 
     public void updateNeighbor() {
-        if (FMLCommonHandler.instance().getEffectiveSide().isClient()) markFullRenderUpdate();
+        if (FMLCommonHandler.instance().getEffectiveSide().isClient()) updateRender();
         for (LittleTile tile : tiles) {
             tile.onNeighborChangeInside();
         }
@@ -293,7 +286,7 @@ public class TileEntityLittleTiles extends TileEntity {
     }
 
     public void update() {
-        if (FMLCommonHandler.instance().getEffectiveSide().isClient()) markFullRenderUpdate();
+        if (FMLCommonHandler.instance().getEffectiveSide().isClient()) updateRender();
 
         worldObj.markTileEntityChunkModified(this.xCoord, this.yCoord, this.zCoord, this);
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
