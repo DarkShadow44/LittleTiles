@@ -52,11 +52,7 @@ public class ExtendedRenderBlocks extends RenderBlocks {
             f2 = f5;
         }
 
-        return Minecraft.isAmbientOcclusionEnabled() && block.getLightValue() == 0
-                ? (this.partialRenderBounds
-                        ? this.renderStandardBlockWithAmbientOcclusionPartial(block, x, y, z, f, f1, f2)
-                        : this.renderStandardBlockWithAmbientOcclusion(block, x, y, z, f, f1, f2))
-                : this.renderStandardBlockWithColorMultiplier(block, x, y, z, f, f1, f2);
+        return this.renderStandardBlockWithColorMultiplier(block, x, y, z, f, f1, f2);
     }
 
 }
