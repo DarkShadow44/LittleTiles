@@ -430,15 +430,14 @@ public abstract class MixinRenderBlocks {
                 i1 = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z);
             }
 
-            float f7 = this.blockAccess.getBlock(x + 1, y, z).getAmbientOcclusionLightValue();
-            float f8 = (aoLightYNeg + aoLightYNegZPos + f7 + aoLightZPos) / 4.0F;
-            float f9 = (aoLightYNegZNeg + aoLightYNeg + aoLightZNeg + f7) / 4.0F;
-            float f10 = (aoLightZNeg + f7 + aoLightYPosZNeg + aoLightYPos) / 4.0F;
-            float f11 = (f7 + aoLightZPos + aoLightYPos + aoLightYPosZPos) / 4.0F;
-            float f3 = (float)((double)f8 * (1.0D - this.renderMinY) * this.renderMaxZ + (double)f9 * (1.0D - this.renderMinY) * (1.0D - this.renderMaxZ) + (double)f10 * this.renderMinY * (1.0D - this.renderMaxZ) + (double)f11 * this.renderMinY * this.renderMaxZ);
-            float f4 = (float)((double)f8 * (1.0D - this.renderMinY) * this.renderMinZ + (double)f9 * (1.0D - this.renderMinY) * (1.0D - this.renderMinZ) + (double)f10 * this.renderMinY * (1.0D - this.renderMinZ) + (double)f11 * this.renderMinY * this.renderMinZ);
-            float f5 = (float)((double)f8 * (1.0D - this.renderMaxY) * this.renderMinZ + (double)f9 * (1.0D - this.renderMaxY) * (1.0D - this.renderMinZ) + (double)f10 * this.renderMaxY * (1.0D - this.renderMinZ) + (double)f11 * this.renderMaxY * this.renderMinZ);
-            float f6 = (float)((double)f8 * (1.0D - this.renderMaxY) * this.renderMaxZ + (double)f9 * (1.0D - this.renderMaxY) * (1.0D - this.renderMaxZ) + (double)f10 * this.renderMaxY * (1.0D - this.renderMaxZ) + (double)f11 * this.renderMaxY * this.renderMaxZ);
+            float cornerYNegZPos =  (aoLightXPos + aoLightYNeg + aoLightYNegZPos  + aoLightZPos) / 4.0F;
+            float cornerYNegZNeg =  (aoLightXPos + aoLightYNegZNeg + aoLightYNeg + aoLightZNeg) / 4.0F;
+            float cornerYPosZNeg = (aoLightXPos + aoLightZNeg + aoLightYPosZNeg + aoLightYPos) / 4.0F;
+            float cornerYPosZPos = (aoLightXPos + aoLightZPos + aoLightYPos + aoLightYPosZPos) / 4.0F;
+            float f3 = (float)((double)cornerYNegZPos * (1.0D - this.renderMinY) * this.renderMaxZ + (double)cornerYNegZNeg * (1.0D - this.renderMinY) * (1.0D - this.renderMaxZ) + (double)cornerYPosZNeg * this.renderMinY * (1.0D - this.renderMaxZ) + (double)cornerYPosZPos * this.renderMinY * this.renderMaxZ);
+            float f4 = (float)((double)cornerYNegZPos * (1.0D - this.renderMinY) * this.renderMinZ + (double)cornerYNegZNeg * (1.0D - this.renderMinY) * (1.0D - this.renderMinZ) + (double)cornerYPosZNeg * this.renderMinY * (1.0D - this.renderMinZ) + (double)cornerYPosZPos * this.renderMinY * this.renderMinZ);
+            float f5 = (float)((double)cornerYNegZPos * (1.0D - this.renderMaxY) * this.renderMinZ + (double)cornerYNegZNeg * (1.0D - this.renderMaxY) * (1.0D - this.renderMinZ) + (double)cornerYPosZNeg * this.renderMaxY * (1.0D - this.renderMinZ) + (double)cornerYPosZPos * this.renderMaxY * this.renderMinZ);
+            float f6 = (float)((double)cornerYNegZPos * (1.0D - this.renderMaxY) * this.renderMaxZ + (double)cornerYNegZNeg * (1.0D - this.renderMaxY) * (1.0D - this.renderMaxZ) + (double)cornerYPosZNeg * this.renderMaxY * (1.0D - this.renderMaxZ) + (double)cornerYPosZPos * this.renderMaxY * this.renderMaxZ);
             int j1 = this.getAoBrightness(brightnessYNeg, brightnessYNegZPos, brightnessZPos, i1);
             int k1 = this.getAoBrightness(brightnessZPos, brightnessYPos, brightnessYPosZPos, i1);
             int l1 = this.getAoBrightness(brightnessZNeg, brightnessYPosZNeg, brightnessYPos, i1);
