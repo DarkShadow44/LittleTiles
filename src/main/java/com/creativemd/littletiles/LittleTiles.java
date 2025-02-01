@@ -60,6 +60,10 @@ import cpw.mods.fml.relauncher.Side;
 @Mod(modid = LittleTiles.modid, version = LittleTiles.version, name = "LittleTiles")
 public class LittleTiles {
 
+    public static void Asd()
+    {
+        int k=345;
+    }
     @Instance(LittleTiles.modid)
     public static LittleTiles instance = new LittleTiles();
 

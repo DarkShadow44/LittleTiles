@@ -9,11 +9,13 @@ import net.minecraft.world.IBlockAccess;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.creativemd.littletiles.mixininterfaces.IMixinRenderBlocks;
+import com.creativemd.littletiles.LittleTiles;
 
 @Mixin(value = RenderBlocks.class)
 public abstract class MixinRenderBlocks implements IMixinRenderBlocks {
@@ -145,20 +147,23 @@ public abstract class MixinRenderBlocks implements IMixinRenderBlocks {
     @Shadow
     public abstract int getAoBrightness(int p_147778_1_, int p_147778_2_, int p_147778_3_, int p_147778_4_);
 
-    private boolean isLittleTiles;
+    @Unique
+    private boolean littleTiles$isLittleTiles;
 
     @Override
-    public void setLittleTiles(boolean enable) {
-        isLittleTiles = enable;
+    public void littleTiles$setLittleTiles(boolean enable) {
+        littleTiles$isLittleTiles = enable;
     }
 
     @Inject(method = "renderFaceYPos", at = @At("HEAD"))
     public void renderFaceYPos(Block block, double xIn, double yIn, double zIn, IIcon texture, CallbackInfo callback) {
-        if (!(isLittleTiles && Minecraft.isAmbientOcclusionEnabled()
+
+        if (!(littleTiles$isLittleTiles && Minecraft.isAmbientOcclusionEnabled()
                 && block.getLightValue() == 0
                 && this.partialRenderBounds)) {
             return;
         }
+        LittleTiles.Asd();
 
         int x = (int) xIn;
         int y = (int) yIn;
@@ -178,7 +183,7 @@ public abstract class MixinRenderBlocks implements IMixinRenderBlocks {
             colorB = f5;
         }
 
-        int i1 = block.colorMultiplier(this.blockAccess, x, y, z);;
+        int i1 = block.colorMultiplier(this.blockAccess, x, y, z);
 
         if (this.renderMaxY >= 1.0D || !this.blockAccess.getBlock(x, y + 1, z).isOpaqueCube()) {
             i1 = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z);
@@ -268,7 +273,7 @@ public abstract class MixinRenderBlocks implements IMixinRenderBlocks {
 
     @Inject(method = "renderFaceYNeg", at = @At("HEAD"))
     public void renderFaceYNeg(Block block, double xIn, double yIn, double zIn, IIcon texture, CallbackInfo callback) {
-        if (!(isLittleTiles && Minecraft.isAmbientOcclusionEnabled()
+        if (!(littleTiles$isLittleTiles && Minecraft.isAmbientOcclusionEnabled()
                 && block.getLightValue() == 0
                 && this.partialRenderBounds)) {
             return;

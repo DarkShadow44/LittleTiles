@@ -2,6 +2,7 @@ package com.creativemd.creativecore.client.block;
 
 import java.util.ArrayList;
 
+import com.creativemd.littletiles.mixininterfaces.IMixinRenderBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -32,6 +33,8 @@ public class BlockRenderHelper {
 
     public static void renderCubes(IBlockAccess world, ArrayList<CubeObject> cubes, int x, int y, int z, Block block,
             RenderBlocks renderer, ForgeDirection direction, ExtendedRenderBlocks extraRenderer) {
+        ((IMixinRenderBlocks) renderer).littleTiles$setLittleTiles(true);
+        ((IMixinRenderBlocks) extraRenderer).littleTiles$setLittleTiles(true);
         for (int i = 0; i < cubes.size(); i++) {
 
             if (cubes.get(i).icon != null) renderer.setOverrideBlockTexture(cubes.get(i).icon);
@@ -79,6 +82,8 @@ public class BlockRenderHelper {
 
             if (cubes.get(i).icon != null || cubes.get(i).block != null) renderer.clearOverrideBlockTexture();
         }
+        ((IMixinRenderBlocks) renderer).littleTiles$setLittleTiles(false);
+        ((IMixinRenderBlocks) extraRenderer).littleTiles$setLittleTiles(false);
     }
 
     public static void renderInventoryCubes(RenderBlocks renderer, ArrayList<CubeObject> cubes, Block parBlock,
