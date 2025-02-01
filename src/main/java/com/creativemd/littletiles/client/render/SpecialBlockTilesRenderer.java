@@ -2,7 +2,6 @@ package com.creativemd.littletiles.client.render;
 
 import java.util.ArrayList;
 
-import com.creativemd.littletiles.mixininterfaces.IMixinRenderBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -24,6 +23,7 @@ import com.creativemd.littletiles.client.LittleTilesClient;
 import com.creativemd.littletiles.common.tileentity.TileEntityLittleTiles;
 import com.creativemd.littletiles.common.utils.LittleTile;
 import com.creativemd.littletiles.common.utils.small.LittleTileVec;
+import com.creativemd.littletiles.mixininterfaces.IMixinRenderBlocks;
 import com.creativemd.littletiles.utils.TileList;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -48,7 +48,7 @@ public class SpecialBlockTilesRenderer extends TileEntitySpecialRenderer
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
             RenderBlocks renderer) {
-        ((IMixinRenderBlocks)renderer).setLittleTiles(true);
+        ((IMixinRenderBlocks) renderer).setLittleTiles(true);
         TileEntity tileEntity = world.getTileEntity(x, y, z);
         if (tileEntity instanceof TileEntityLittleTiles) {
             TileEntityLittleTiles little = (TileEntityLittleTiles) tileEntity;
@@ -58,7 +58,7 @@ public class SpecialBlockTilesRenderer extends TileEntitySpecialRenderer
                 BlockRenderHelper.renderCubes(world, cubes, x, y, z, block, renderer, null);
             }
         }
-        ((IMixinRenderBlocks)renderer).setLittleTiles(false);
+        ((IMixinRenderBlocks) renderer).setLittleTiles(false);
         return true;
     }
 
