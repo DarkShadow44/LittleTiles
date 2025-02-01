@@ -38,38 +38,6 @@ public abstract class MixinRenderBlocks {
     @Shadow
     public boolean enableAO;
 
-    @Shadow   public float aoLightValueScratchXYZNNN;
-    /** Used as a scratch variable for ambient occlusion on the north/bottom/west corner. */
-    @Shadow  public float aoLightValueScratchXYZNNP;
-    /** Used as a scratch variable for ambient occlusion on the south/bottom/east corner. */
-    @Shadow  public float aoLightValueScratchXYZPNN;
-    /** Used as a scratch variable for ambient occlusion on the south/bottom/west corner. */
-    @Shadow   public float aoLightValueScratchXYZPNP;
-    /** Used as a scratch variable for ambient occlusion on the north/top/east corner. */
-    @Shadow   public float aoLightValueScratchXYZNPN;
-    /** Used as a scratch variable for ambient occlusion on the north/top/west corner. */
-    @Shadow   public float aoLightValueScratchXYZNPP;
-    /** Used as a scratch variable for ambient occlusion on the south/top/east corner. */
-    @Shadow   public float aoLightValueScratchXYZPPN;
-    /** Used as a scratch variable for ambient occlusion on the south/top/west corner. */
-    @Shadow   public float aoLightValueScratchXYZPPP;
-    /** Ambient occlusion brightness XYZNNN */
-    @Shadow    public int aoBrightnessXYZNNN;
-    /** Ambient occlusion brightness XYZNNP */
-    @Shadow   public int aoBrightnessXYZNNP;
-    /** Ambient occlusion brightness XYZPNN */
-    @Shadow  public int aoBrightnessXYZPNN;
-    /** Ambient occlusion brightness XYZPNP */
-    @Shadow    public int aoBrightnessXYZPNP;
-    /** Ambient occlusion brightness XYZNPN */
-    @Shadow    public int aoBrightnessXYZNPN;
-    /** Ambient occlusion brightness XYZNPP */
-    @Shadow   public int aoBrightnessXYZNPP;
-    /** Ambient occlusion brightness XYZPPN */
-    @Shadow  public int aoBrightnessXYZPPN;
-    /** Ambient occlusion brightness XYZPPP */
-    @Shadow  public int aoBrightnessXYZPPP;
-
     /** Red color value for the top left corner */
     @Shadow    public float colorRedTopLeft;
     /** Red color value for the bottom left corner */
@@ -163,17 +131,17 @@ public abstract class MixinRenderBlocks {
 
         if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y - 1, z, 0))
         {
-            this.aoLightValueScratchXYZNNN = this.blockAccess.getBlock(x - 1, y, z - 1).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y, z - 1);
+            float aoLightValueScratchXYZNNN = this.blockAccess.getBlock(x - 1, y, z - 1).getAmbientOcclusionLightValue();
+           int  aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y, z - 1);
 
-            this.aoLightValueScratchXYZNNP = this.blockAccess.getBlock(x - 1, y, z + 1).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y, z + 1);
+            float aoLightValueScratchXYZNNP = this.blockAccess.getBlock(x - 1, y, z + 1).getAmbientOcclusionLightValue();
+            int aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y, z + 1);
 
-            this.aoLightValueScratchXYZPNN = this.blockAccess.getBlock(x + 1, y, z - 1).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z - 1);
+            float  aoLightValueScratchXYZPNN = this.blockAccess.getBlock(x + 1, y, z - 1).getAmbientOcclusionLightValue();
+            int  aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z - 1);
 
-            this.aoLightValueScratchXYZPNP = this.blockAccess.getBlock(x + 1, y, z + 1).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z + 1);
+            float  aoLightValueScratchXYZPNP = this.blockAccess.getBlock(x + 1, y, z + 1).getAmbientOcclusionLightValue();
+            int  aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z + 1);
 
             i1 = l;
 
@@ -183,14 +151,14 @@ public abstract class MixinRenderBlocks {
             }
 
             f7 = this.blockAccess.getBlock(x, y - 1, z).getAmbientOcclusionLightValue();
-            f3 = (this.aoLightValueScratchXYZNNP + aoLightXNeg + aoLightZPos + f7) / 4.0F;
-            f6 = (aoLightZPos + f7 + this.aoLightValueScratchXYZPNP + aoLightXPos) / 4.0F;
-            f5 = (f7 + aoLightZNeg + aoLightXPos + this.aoLightValueScratchXYZPNN) / 4.0F;
-            f4 = (aoLightXNeg + this.aoLightValueScratchXYZNNN + f7 + aoLightZNeg) / 4.0F;
-            this.brightnessTopLeft = this.getAoBrightness(this.aoBrightnessXYZNNP, brightnessXNeg, brightnessZPos, i1);
-            this.brightnessTopRight = this.getAoBrightness(brightnessZPos, this.aoBrightnessXYZPNP, brightnessXPos, i1);
-            this.brightnessBottomRight = this.getAoBrightness(brightnessZNeg, brightnessXPos, this.aoBrightnessXYZPNN, i1);
-            this.brightnessBottomLeft = this.getAoBrightness(brightnessXNeg, this.aoBrightnessXYZNNN, brightnessZNeg, i1);
+            f3 = (aoLightValueScratchXYZNNP + aoLightXNeg + aoLightZPos + f7) / 4.0F;
+            f6 = (aoLightZPos + f7 + aoLightValueScratchXYZPNP + aoLightXPos) / 4.0F;
+            f5 = (f7 + aoLightZNeg + aoLightXPos + aoLightValueScratchXYZPNN) / 4.0F;
+            f4 = (aoLightXNeg + aoLightValueScratchXYZNNN + f7 + aoLightZNeg) / 4.0F;
+            this.brightnessTopLeft = this.getAoBrightness(aoBrightnessXYZNNP, brightnessXNeg, brightnessZPos, i1);
+            this.brightnessTopRight = this.getAoBrightness(brightnessZPos, aoBrightnessXYZPNP, brightnessXPos, i1);
+            this.brightnessBottomRight = this.getAoBrightness(brightnessZNeg, brightnessXPos, aoBrightnessXYZPNN, i1);
+            this.brightnessBottomLeft = this.getAoBrightness(brightnessXNeg, aoBrightnessXYZNNN, brightnessZNeg, i1);
 
             this.colorRedTopLeft = this.colorRedBottomLeft = this.colorRedBottomRight = this.colorRedTopRight = 0.5F;
             this.colorGreenTopLeft = this.colorGreenBottomLeft = this.colorGreenBottomRight = this.colorGreenTopRight = 0.5F;
@@ -214,17 +182,17 @@ public abstract class MixinRenderBlocks {
 
         if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y + 1, z, 1))
         {
-            this.aoLightValueScratchXYZNPN = this.blockAccess.getBlock(x - 1, y, z - 1).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y, z - 1);
+          float   aoLightValueScratchXYZNPN = this.blockAccess.getBlock(x - 1, y, z - 1).getAmbientOcclusionLightValue();
+            int  aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y, z - 1);
 
-            this.aoLightValueScratchXYZPPN = this.blockAccess.getBlock(x + 1, y, z - 1).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z - 1);
+            float  aoLightValueScratchXYZPPN = this.blockAccess.getBlock(x + 1, y, z - 1).getAmbientOcclusionLightValue();
+            int  aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z - 1);
 
-            this.aoLightValueScratchXYZNPP = this.blockAccess.getBlock(x - 1, y, z + 1).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y, z + 1);
+            float  aoLightValueScratchXYZNPP = this.blockAccess.getBlock(x - 1, y, z + 1).getAmbientOcclusionLightValue();
+            int  aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y, z + 1);
 
-            this.aoLightValueScratchXYZPPP = this.blockAccess.getBlock(x + 1, y, z + 1).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z + 1);
+            float  aoLightValueScratchXYZPPP = this.blockAccess.getBlock(x + 1, y, z + 1).getAmbientOcclusionLightValue();
+            int  aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z + 1);
 
             i1 = l;
 
@@ -234,14 +202,14 @@ public abstract class MixinRenderBlocks {
             }
 
             f7 = this.blockAccess.getBlock(x, y + 1, z).getAmbientOcclusionLightValue();
-            f6 = (this.aoLightValueScratchXYZNPP + aoLightXNeg + aoLightZPos + f7) / 4.0F;
-            f3 = (aoLightZPos + f7 + this.aoLightValueScratchXYZPPP + aoLightXPos) / 4.0F;
-            f4 = (f7 + aoLightZNeg + aoLightXPos + this.aoLightValueScratchXYZPPN) / 4.0F;
-            f5 = (aoLightXNeg + this.aoLightValueScratchXYZNPN + f7 + aoLightZNeg) / 4.0F;
-            this.brightnessTopRight = this.getAoBrightness(this.aoBrightnessXYZNPP, brightnessXNeg, brightnessZPos, i1);
-            this.brightnessTopLeft = this.getAoBrightness(brightnessZPos, this.aoBrightnessXYZPPP, brightnessXPos, i1);
-            this.brightnessBottomLeft = this.getAoBrightness(brightnessZNeg, brightnessXPos, this.aoBrightnessXYZPPN, i1);
-            this.brightnessBottomRight = this.getAoBrightness(brightnessXNeg, this.aoBrightnessXYZNPN, brightnessZNeg, i1);
+            f6 = (aoLightValueScratchXYZNPP + aoLightXNeg + aoLightZPos + f7) / 4.0F;
+            f3 = (aoLightZPos + f7 + aoLightValueScratchXYZPPP + aoLightXPos) / 4.0F;
+            f4 = (f7 + aoLightZNeg + aoLightXPos + aoLightValueScratchXYZPPN) / 4.0F;
+            f5 = (aoLightXNeg + aoLightValueScratchXYZNPN + f7 + aoLightZNeg) / 4.0F;
+            this.brightnessTopRight = this.getAoBrightness(aoBrightnessXYZNPP, brightnessXNeg, brightnessZPos, i1);
+            this.brightnessTopLeft = this.getAoBrightness(brightnessZPos, aoBrightnessXYZPPP, brightnessXPos, i1);
+            this.brightnessBottomLeft = this.getAoBrightness(brightnessZNeg, brightnessXPos, aoBrightnessXYZPPN, i1);
+            this.brightnessBottomRight = this.getAoBrightness(brightnessXNeg, aoBrightnessXYZNPN, brightnessZNeg, i1);
             this.colorRedTopLeft = this.colorRedBottomLeft = this.colorRedBottomRight = this.colorRedTopRight = colorR;
             this.colorGreenTopLeft = this.colorGreenBottomLeft = this.colorGreenBottomRight = this.colorGreenTopRight = colorG;
             this.colorBlueTopLeft = this.colorBlueBottomLeft = this.colorBlueBottomRight = this.colorBlueTopRight = colorB;
@@ -273,17 +241,17 @@ public abstract class MixinRenderBlocks {
 
         if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y, z - 1, 2))
         {
-            this.aoLightValueScratchXYZNNN = this.blockAccess.getBlock(x - 1, y - 1, z).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y - 1, z);
+            float   aoLightValueScratchXYZNNN = this.blockAccess.getBlock(x - 1, y - 1, z).getAmbientOcclusionLightValue();
+            int   aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y - 1, z);
 
-            this.aoLightValueScratchXYZNPN = this.blockAccess.getBlock(x - 1, y + 1, z).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y + 1, z);
+            float  aoLightValueScratchXYZNPN = this.blockAccess.getBlock(x - 1, y + 1, z).getAmbientOcclusionLightValue();
+            int  aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y + 1, z);
 
-            this.aoLightValueScratchXYZPNN = this.blockAccess.getBlock(x + 1, y - 1, z).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y - 1, z);
+            float  aoLightValueScratchXYZPNN = this.blockAccess.getBlock(x + 1, y - 1, z).getAmbientOcclusionLightValue();
+            int  aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y - 1, z);
 
-            this.aoLightValueScratchXYZPPN = this.blockAccess.getBlock(x + 1, y + 1, z).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y + 1, z);
+            float  aoLightValueScratchXYZPPN = this.blockAccess.getBlock(x + 1, y + 1, z).getAmbientOcclusionLightValue();
+         int   aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y + 1, z);
 
             i1 = l;
 
@@ -293,18 +261,18 @@ public abstract class MixinRenderBlocks {
             }
 
             f7 = this.blockAccess.getBlock(x, y, z - 1).getAmbientOcclusionLightValue();
-            f8 = (aoLightXNeg + this.aoLightValueScratchXYZNPN + f7 + aoLightYPos) / 4.0F;
-            f9 = (f7 + aoLightYPos + aoLightXPos + this.aoLightValueScratchXYZPPN) / 4.0F;
-            f10 = (aoLightYNeg + f7 + this.aoLightValueScratchXYZPNN + aoLightXPos) / 4.0F;
-            f11 = (this.aoLightValueScratchXYZNNN + aoLightXNeg + aoLightYNeg + f7) / 4.0F;
+            f8 = (aoLightXNeg + aoLightValueScratchXYZNPN + f7 + aoLightYPos) / 4.0F;
+            f9 = (f7 + aoLightYPos + aoLightXPos + aoLightValueScratchXYZPPN) / 4.0F;
+            f10 = (aoLightYNeg + f7 + aoLightValueScratchXYZPNN + aoLightXPos) / 4.0F;
+            f11 = (aoLightValueScratchXYZNNN + aoLightXNeg + aoLightYNeg + f7) / 4.0F;
             f3 = (float)((double)f8 * this.renderMaxY * (1.0D - this.renderMinX) + (double)f9 * this.renderMaxY * this.renderMinX + (double)f10 * (1.0D - this.renderMaxY) * this.renderMinX + (double)f11 * (1.0D - this.renderMaxY) * (1.0D - this.renderMinX));
             f4 = (float)((double)f8 * this.renderMaxY * (1.0D - this.renderMaxX) + (double)f9 * this.renderMaxY * this.renderMaxX + (double)f10 * (1.0D - this.renderMaxY) * this.renderMaxX + (double)f11 * (1.0D - this.renderMaxY) * (1.0D - this.renderMaxX));
             f5 = (float)((double)f8 * this.renderMinY * (1.0D - this.renderMaxX) + (double)f9 * this.renderMinY * this.renderMaxX + (double)f10 * (1.0D - this.renderMinY) * this.renderMaxX + (double)f11 * (1.0D - this.renderMinY) * (1.0D - this.renderMaxX));
             f6 = (float)((double)f8 * this.renderMinY * (1.0D - this.renderMinX) + (double)f9 * this.renderMinY * this.renderMinX + (double)f10 * (1.0D - this.renderMinY) * this.renderMinX + (double)f11 * (1.0D - this.renderMinY) * (1.0D - this.renderMinX));
-            j1 = this.getAoBrightness(brightnessXNeg, this.aoBrightnessXYZNPN, brightnessYPos, i1);
-            k1 = this.getAoBrightness(brightnessYPos, brightnessXPos, this.aoBrightnessXYZPPN, i1);
-            l1 = this.getAoBrightness(brightnessYNeg, this.aoBrightnessXYZPNN, brightnessXPos, i1);
-            i2 = this.getAoBrightness(this.aoBrightnessXYZNNN, brightnessXNeg, brightnessYNeg, i1);
+            j1 = this.getAoBrightness(brightnessXNeg, aoBrightnessXYZNPN, brightnessYPos, i1);
+            k1 = this.getAoBrightness(brightnessYPos, brightnessXPos, aoBrightnessXYZPPN, i1);
+            l1 = this.getAoBrightness(brightnessYNeg, aoBrightnessXYZPNN, brightnessXPos, i1);
+            i2 = this.getAoBrightness(aoBrightnessXYZNNN, brightnessXNeg, brightnessYNeg, i1);
             this.brightnessTopLeft = this.mixAoBrightness(j1, k1, l1, i2, this.renderMaxY * (1.0D - this.renderMinX), this.renderMaxY * this.renderMinX, (1.0D - this.renderMaxY) * this.renderMinX, (1.0D - this.renderMaxY) * (1.0D - this.renderMinX));
             this.brightnessBottomLeft = this.mixAoBrightness(j1, k1, l1, i2, this.renderMaxY * (1.0D - this.renderMaxX), this.renderMaxY * this.renderMaxX, (1.0D - this.renderMaxY) * this.renderMaxX, (1.0D - this.renderMaxY) * (1.0D - this.renderMaxX));
             this.brightnessBottomRight = this.mixAoBrightness(j1, k1, l1, i2, this.renderMinY * (1.0D - this.renderMaxX), this.renderMinY * this.renderMaxX, (1.0D - this.renderMinY) * this.renderMaxX, (1.0D - this.renderMinY) * (1.0D - this.renderMaxX));
@@ -334,17 +302,17 @@ public abstract class MixinRenderBlocks {
 
         if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y, z + 1, 3))
         {
-            this.aoLightValueScratchXYZNNP = this.blockAccess.getBlock(x - 1, y - 1, z).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y - 1, z);
+            float   aoLightValueScratchXYZNNP = this.blockAccess.getBlock(x - 1, y - 1, z).getAmbientOcclusionLightValue();
+            int  aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y - 1, z);
 
-            this.aoLightValueScratchXYZNPP = this.blockAccess.getBlock(x - 1, y + 1, z).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y + 1, z);
+            float   aoLightValueScratchXYZNPP = this.blockAccess.getBlock(x - 1, y + 1, z).getAmbientOcclusionLightValue();
+            int  aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(this.blockAccess, x - 1, y + 1, z);
 
-            this.aoLightValueScratchXYZPNP = this.blockAccess.getBlock(x + 1, y - 1, z).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y - 1, z);
+            float   aoLightValueScratchXYZPNP = this.blockAccess.getBlock(x + 1, y - 1, z).getAmbientOcclusionLightValue();
+            int aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y - 1, z);
 
-            this.aoLightValueScratchXYZPPP = this.blockAccess.getBlock(x + 1, y + 1, z).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y + 1, z);
+          float  aoLightValueScratchXYZPPP = this.blockAccess.getBlock(x + 1, y + 1, z).getAmbientOcclusionLightValue();
+            int aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y + 1, z);
 
             i1 = l;
 
@@ -354,18 +322,18 @@ public abstract class MixinRenderBlocks {
             }
 
             f7 = this.blockAccess.getBlock(x, y, z + 1).getAmbientOcclusionLightValue();
-            f8 = (aoLightXNeg + this.aoLightValueScratchXYZNPP + f7 + aoLightYPos) / 4.0F;
-            f9 = (f7 + aoLightYPos + aoLightXPos + this.aoLightValueScratchXYZPPP) / 4.0F;
-            f10 = (aoLightYNeg + f7 + this.aoLightValueScratchXYZPNP + aoLightXPos) / 4.0F;
-            f11 = (this.aoLightValueScratchXYZNNP + aoLightXNeg + aoLightYNeg + f7) / 4.0F;
+            f8 = (aoLightXNeg + aoLightValueScratchXYZNPP + f7 + aoLightYPos) / 4.0F;
+            f9 = (f7 + aoLightYPos + aoLightXPos + aoLightValueScratchXYZPPP) / 4.0F;
+            f10 = (aoLightYNeg + f7 + aoLightValueScratchXYZPNP + aoLightXPos) / 4.0F;
+            f11 = (aoLightValueScratchXYZNNP + aoLightXNeg + aoLightYNeg + f7) / 4.0F;
             f3 = (float)((double)f8 * this.renderMaxY * (1.0D - this.renderMinX) + (double)f9 * this.renderMaxY * this.renderMinX + (double)f10 * (1.0D - this.renderMaxY) * this.renderMinX + (double)f11 * (1.0D - this.renderMaxY) * (1.0D - this.renderMinX));
             f4 = (float)((double)f8 * this.renderMinY * (1.0D - this.renderMinX) + (double)f9 * this.renderMinY * this.renderMinX + (double)f10 * (1.0D - this.renderMinY) * this.renderMinX + (double)f11 * (1.0D - this.renderMinY) * (1.0D - this.renderMinX));
             f5 = (float)((double)f8 * this.renderMinY * (1.0D - this.renderMaxX) + (double)f9 * this.renderMinY * this.renderMaxX + (double)f10 * (1.0D - this.renderMinY) * this.renderMaxX + (double)f11 * (1.0D - this.renderMinY) * (1.0D - this.renderMaxX));
             f6 = (float)((double)f8 * this.renderMaxY * (1.0D - this.renderMaxX) + (double)f9 * this.renderMaxY * this.renderMaxX + (double)f10 * (1.0D - this.renderMaxY) * this.renderMaxX + (double)f11 * (1.0D - this.renderMaxY) * (1.0D - this.renderMaxX));
-            j1 = this.getAoBrightness(brightnessXNeg, this.aoBrightnessXYZNPP, brightnessYPos, i1);
-            k1 = this.getAoBrightness(brightnessYPos, brightnessXPos, this.aoBrightnessXYZPPP, i1);
-            l1 = this.getAoBrightness(brightnessYNeg, this.aoBrightnessXYZPNP, brightnessXPos, i1);
-            i2 = this.getAoBrightness(this.aoBrightnessXYZNNP, brightnessXNeg, brightnessYNeg, i1);
+            j1 = this.getAoBrightness(brightnessXNeg, aoBrightnessXYZNPP, brightnessYPos, i1);
+            k1 = this.getAoBrightness(brightnessYPos, brightnessXPos, aoBrightnessXYZPPP, i1);
+            l1 = this.getAoBrightness(brightnessYNeg, aoBrightnessXYZPNP, brightnessXPos, i1);
+            i2 = this.getAoBrightness(aoBrightnessXYZNNP, brightnessXNeg, brightnessYNeg, i1);
             this.brightnessTopLeft = this.mixAoBrightness(j1, i2, l1, k1, this.renderMaxY * (1.0D - this.renderMinX), (1.0D - this.renderMaxY) * (1.0D - this.renderMinX), (1.0D - this.renderMaxY) * this.renderMinX, this.renderMaxY * this.renderMinX);
             this.brightnessBottomLeft = this.mixAoBrightness(j1, i2, l1, k1, this.renderMinY * (1.0D - this.renderMinX), (1.0D - this.renderMinY) * (1.0D - this.renderMinX), (1.0D - this.renderMinY) * this.renderMinX, this.renderMinY * this.renderMinX);
             this.brightnessBottomRight = this.mixAoBrightness(j1, i2, l1, k1, this.renderMinY * (1.0D - this.renderMaxX), (1.0D - this.renderMinY) * (1.0D - this.renderMaxX), (1.0D - this.renderMinY) * this.renderMaxX, this.renderMinY * this.renderMaxX);
@@ -395,17 +363,17 @@ public abstract class MixinRenderBlocks {
 
         if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x - 1, y, z, 4))
         {
-            this.aoLightValueScratchXYZNNN = this.blockAccess.getBlock(x, y - 1, z - 1).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(this.blockAccess, x, y - 1, z - 1);
+            float   aoLightValueScratchXYZNNN = this.blockAccess.getBlock(x, y - 1, z - 1).getAmbientOcclusionLightValue();
+            int  aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(this.blockAccess, x, y - 1, z - 1);
 
-            this.aoLightValueScratchXYZNNP = this.blockAccess.getBlock(x, y - 1, z + 1).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(this.blockAccess, x, y - 1, z + 1);
+            float   aoLightValueScratchXYZNNP = this.blockAccess.getBlock(x, y - 1, z + 1).getAmbientOcclusionLightValue();
+            int  aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(this.blockAccess, x, y - 1, z + 1);
 
-            this.aoLightValueScratchXYZNPN = this.blockAccess.getBlock(x, y + 1, z - 1).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z - 1);
+            float  aoLightValueScratchXYZNPN = this.blockAccess.getBlock(x, y + 1, z - 1).getAmbientOcclusionLightValue();
+           int aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z - 1);
 
-            this.aoLightValueScratchXYZNPP = this.blockAccess.getBlock(x, y + 1, z + 1).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z + 1);
+            float  aoLightValueScratchXYZNPP = this.blockAccess.getBlock(x, y + 1, z + 1).getAmbientOcclusionLightValue();
+            int aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z + 1);
 
             i1 = l;
 
@@ -415,18 +383,18 @@ public abstract class MixinRenderBlocks {
             }
 
             f7 = this.blockAccess.getBlock(x - 1, y, z).getAmbientOcclusionLightValue();
-            f8 = (aoLightYNeg + this.aoLightValueScratchXYZNNP + f7 + aoLightZPos) / 4.0F;
-            f9 = (f7 + aoLightZPos + aoLightYPos + this.aoLightValueScratchXYZNPP) / 4.0F;
-            f10 = (aoLightZNeg + f7 + this.aoLightValueScratchXYZNPN + aoLightYPos) / 4.0F;
-            f11 = (this.aoLightValueScratchXYZNNN + aoLightYNeg + aoLightZNeg + f7) / 4.0F;
+            f8 = (aoLightYNeg + aoLightValueScratchXYZNNP + f7 + aoLightZPos) / 4.0F;
+            f9 = (f7 + aoLightZPos + aoLightYPos + aoLightValueScratchXYZNPP) / 4.0F;
+            f10 = (aoLightZNeg + f7 + aoLightValueScratchXYZNPN + aoLightYPos) / 4.0F;
+            f11 = (aoLightValueScratchXYZNNN + aoLightYNeg + aoLightZNeg + f7) / 4.0F;
             f3 = (float)((double)f9 * this.renderMaxY * this.renderMaxZ + (double)f10 * this.renderMaxY * (1.0D - this.renderMaxZ) + (double)f11 * (1.0D - this.renderMaxY) * (1.0D - this.renderMaxZ) + (double)f8 * (1.0D - this.renderMaxY) * this.renderMaxZ);
             f4 = (float)((double)f9 * this.renderMaxY * this.renderMinZ + (double)f10 * this.renderMaxY * (1.0D - this.renderMinZ) + (double)f11 * (1.0D - this.renderMaxY) * (1.0D - this.renderMinZ) + (double)f8 * (1.0D - this.renderMaxY) * this.renderMinZ);
             f5 = (float)((double)f9 * this.renderMinY * this.renderMinZ + (double)f10 * this.renderMinY * (1.0D - this.renderMinZ) + (double)f11 * (1.0D - this.renderMinY) * (1.0D - this.renderMinZ) + (double)f8 * (1.0D - this.renderMinY) * this.renderMinZ);
             f6 = (float)((double)f9 * this.renderMinY * this.renderMaxZ + (double)f10 * this.renderMinY * (1.0D - this.renderMaxZ) + (double)f11 * (1.0D - this.renderMinY) * (1.0D - this.renderMaxZ) + (double)f8 * (1.0D - this.renderMinY) * this.renderMaxZ);
-            j1 = this.getAoBrightness(brightnessYNeg, this.aoBrightnessXYZNNP, brightnessZPos, i1);
-            k1 = this.getAoBrightness(brightnessZPos, brightnessYPos, this.aoBrightnessXYZNPP, i1);
-            l1 = this.getAoBrightness(brightnessZNeg, this.aoBrightnessXYZNPN, brightnessYPos, i1);
-            i2 = this.getAoBrightness(this.aoBrightnessXYZNNN, brightnessYNeg, brightnessZNeg, i1);
+            j1 = this.getAoBrightness(brightnessYNeg, aoBrightnessXYZNNP, brightnessZPos, i1);
+            k1 = this.getAoBrightness(brightnessZPos, brightnessYPos, aoBrightnessXYZNPP, i1);
+            l1 = this.getAoBrightness(brightnessZNeg, aoBrightnessXYZNPN, brightnessYPos, i1);
+            i2 = this.getAoBrightness(aoBrightnessXYZNNN, brightnessYNeg, brightnessZNeg, i1);
             this.brightnessTopLeft = this.mixAoBrightness(k1, l1, i2, j1, this.renderMaxY * this.renderMaxZ, this.renderMaxY * (1.0D - this.renderMaxZ), (1.0D - this.renderMaxY) * (1.0D - this.renderMaxZ), (1.0D - this.renderMaxY) * this.renderMaxZ);
             this.brightnessBottomLeft = this.mixAoBrightness(k1, l1, i2, j1, this.renderMaxY * this.renderMinZ, this.renderMaxY * (1.0D - this.renderMinZ), (1.0D - this.renderMaxY) * (1.0D - this.renderMinZ), (1.0D - this.renderMaxY) * this.renderMinZ);
             this.brightnessBottomRight = this.mixAoBrightness(k1, l1, i2, j1, this.renderMinY * this.renderMinZ, this.renderMinY * (1.0D - this.renderMinZ), (1.0D - this.renderMinY) * (1.0D - this.renderMinZ), (1.0D - this.renderMinY) * this.renderMinZ);
@@ -456,17 +424,17 @@ public abstract class MixinRenderBlocks {
 
         if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x + 1, y, z, 5))
         {
-            this.aoLightValueScratchXYZPNN = this.blockAccess.getBlock(x, y - 1, z - 1).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(this.blockAccess, x, y - 1, z - 1);
+            float aoLightYNegZNeg = this.blockAccess.getBlock(x, y - 1, z - 1).getAmbientOcclusionLightValue();
+            int brightnessYNegZNeg = block.getMixedBrightnessForBlock(this.blockAccess, x, y - 1, z - 1);
 
-            this.aoLightValueScratchXYZPNP = this.blockAccess.getBlock(x, y - 1, z + 1).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(this.blockAccess, x, y - 1, z + 1);
+            float aoLightYNegZPos = this.blockAccess.getBlock(x, y - 1, z + 1).getAmbientOcclusionLightValue();
+            int brightnessYNegZPos = block.getMixedBrightnessForBlock(this.blockAccess, x, y - 1, z + 1);
 
-            this.aoLightValueScratchXYZPPN = this.blockAccess.getBlock(x, y + 1, z - 1).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z - 1);
+            float aoLightYPosZNeg = this.blockAccess.getBlock(x, y + 1, z - 1).getAmbientOcclusionLightValue();
+            int brightnessYPosZNeg = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z - 1);
 
-            this.aoLightValueScratchXYZPPP = this.blockAccess.getBlock(x, y + 1, z + 1).getAmbientOcclusionLightValue();
-            this.aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z + 1);
+            float aoLightYPosZPos = this.blockAccess.getBlock(x, y + 1, z + 1).getAmbientOcclusionLightValue();
+            int brightnessYPosZPos = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z + 1);
 
             i1 = l;
 
@@ -476,18 +444,18 @@ public abstract class MixinRenderBlocks {
             }
 
             f7 = this.blockAccess.getBlock(x + 1, y, z).getAmbientOcclusionLightValue();
-            f8 = (aoLightYNeg + this.aoLightValueScratchXYZPNP + f7 + aoLightZPos) / 4.0F;
-            f9 = (this.aoLightValueScratchXYZPNN + aoLightYNeg + aoLightZNeg + f7) / 4.0F;
-            f10 = (aoLightZNeg + f7 + this.aoLightValueScratchXYZPPN + aoLightYPos) / 4.0F;
-            f11 = (f7 + aoLightZPos + aoLightYPos + this.aoLightValueScratchXYZPPP) / 4.0F;
+            f8 = (aoLightYNeg + aoLightYNegZPos + f7 + aoLightZPos) / 4.0F;
+            f9 = (aoLightYNegZNeg + aoLightYNeg + aoLightZNeg + f7) / 4.0F;
+            f10 = (aoLightZNeg + f7 + aoLightYPosZNeg + aoLightYPos) / 4.0F;
+            f11 = (f7 + aoLightZPos + aoLightYPos + aoLightYPosZPos) / 4.0F;
             f3 = (float)((double)f8 * (1.0D - this.renderMinY) * this.renderMaxZ + (double)f9 * (1.0D - this.renderMinY) * (1.0D - this.renderMaxZ) + (double)f10 * this.renderMinY * (1.0D - this.renderMaxZ) + (double)f11 * this.renderMinY * this.renderMaxZ);
             f4 = (float)((double)f8 * (1.0D - this.renderMinY) * this.renderMinZ + (double)f9 * (1.0D - this.renderMinY) * (1.0D - this.renderMinZ) + (double)f10 * this.renderMinY * (1.0D - this.renderMinZ) + (double)f11 * this.renderMinY * this.renderMinZ);
             f5 = (float)((double)f8 * (1.0D - this.renderMaxY) * this.renderMinZ + (double)f9 * (1.0D - this.renderMaxY) * (1.0D - this.renderMinZ) + (double)f10 * this.renderMaxY * (1.0D - this.renderMinZ) + (double)f11 * this.renderMaxY * this.renderMinZ);
             f6 = (float)((double)f8 * (1.0D - this.renderMaxY) * this.renderMaxZ + (double)f9 * (1.0D - this.renderMaxY) * (1.0D - this.renderMaxZ) + (double)f10 * this.renderMaxY * (1.0D - this.renderMaxZ) + (double)f11 * this.renderMaxY * this.renderMaxZ);
-            j1 = this.getAoBrightness(brightnessYNeg, this.aoBrightnessXYZPNP, brightnessZPos, i1);
-            k1 = this.getAoBrightness(brightnessZPos, brightnessYPos, this.aoBrightnessXYZPPP, i1);
-            l1 = this.getAoBrightness(brightnessZNeg, this.aoBrightnessXYZPPN, brightnessYPos, i1);
-            i2 = this.getAoBrightness(this.aoBrightnessXYZPNN, brightnessYNeg, brightnessZNeg, i1);
+            j1 = this.getAoBrightness(brightnessYNeg, brightnessYNegZPos, brightnessZPos, i1);
+            k1 = this.getAoBrightness(brightnessZPos, brightnessYPos, brightnessYPosZPos, i1);
+            l1 = this.getAoBrightness(brightnessZNeg, brightnessYPosZNeg, brightnessYPos, i1);
+            i2 = this.getAoBrightness(brightnessYNegZNeg, brightnessYNeg, brightnessZNeg, i1);
             this.brightnessTopLeft = this.mixAoBrightness(j1, i2, l1, k1, (1.0D - this.renderMinY) * this.renderMaxZ, (1.0D - this.renderMinY) * (1.0D - this.renderMaxZ), this.renderMinY * (1.0D - this.renderMaxZ), this.renderMinY * this.renderMaxZ);
             this.brightnessBottomLeft = this.mixAoBrightness(j1, i2, l1, k1, (1.0D - this.renderMinY) * this.renderMinZ, (1.0D - this.renderMinY) * (1.0D - this.renderMinZ), this.renderMinY * (1.0D - this.renderMinZ), this.renderMinY * this.renderMinZ);
             this.brightnessBottomRight = this.mixAoBrightness(j1, i2, l1, k1, (1.0D - this.renderMaxY) * this.renderMinZ, (1.0D - this.renderMaxY) * (1.0D - this.renderMinZ), this.renderMaxY * (1.0D - this.renderMinZ), this.renderMaxY * this.renderMinZ);
