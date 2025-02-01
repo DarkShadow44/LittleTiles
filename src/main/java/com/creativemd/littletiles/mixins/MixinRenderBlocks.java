@@ -430,22 +430,22 @@ public abstract class MixinRenderBlocks {
                 i1 = block.getMixedBrightnessForBlock(this.blockAccess, x + 1, y, z);
             }
 
-            float cornerYNegZPos =  (aoLightXPos + aoLightYNeg + aoLightYNegZPos  + aoLightZPos) / 4.0F;
-            float cornerYNegZNeg =  (aoLightXPos + aoLightYNegZNeg + aoLightYNeg + aoLightZNeg) / 4.0F;
-            float cornerYPosZNeg = (aoLightXPos + aoLightZNeg + aoLightYPosZNeg + aoLightYPos) / 4.0F;
-            float cornerYPosZPos = (aoLightXPos + aoLightZPos + aoLightYPos + aoLightYPosZPos) / 4.0F;
-            float f3 = (float)((double)cornerYNegZPos * (1.0D - renderMinY) * renderMaxZ + (double)cornerYNegZNeg * (1.0D - renderMinY) * (1.0D - renderMaxZ) + (double)cornerYPosZNeg * renderMinY * (1.0D - renderMaxZ) + (double)cornerYPosZPos * renderMinY * renderMaxZ);
-            float f4 = (float)((double)cornerYNegZPos * (1.0D - renderMinY) * renderMinZ + (double)cornerYNegZNeg * (1.0D - renderMinY) * (1.0D - renderMinZ) + (double)cornerYPosZNeg * renderMinY * (1.0D - renderMinZ) + (double)cornerYPosZPos * renderMinY * renderMinZ);
-            float f5 = (float)((double)cornerYNegZPos * (1.0D - renderMaxY) * renderMinZ + (double)cornerYNegZNeg * (1.0D - renderMaxY) * (1.0D - renderMinZ) + (double)cornerYPosZNeg * renderMaxY * (1.0D - renderMinZ) + (double)cornerYPosZPos * renderMaxY * renderMinZ);
-            float f6 = (float)((double)cornerYNegZPos * (1.0D - renderMaxY) * renderMaxZ + (double)cornerYNegZNeg * (1.0D - renderMaxY) * (1.0D - renderMaxZ) + (double)cornerYPosZNeg * renderMaxY * (1.0D - renderMaxZ) + (double)cornerYPosZPos * renderMaxY * renderMaxZ);
-            int j1 = this.getAoBrightness(brightnessYNeg, brightnessYNegZPos, brightnessZPos, i1);
-            int k1 = this.getAoBrightness(brightnessZPos, brightnessYPos, brightnessYPosZPos, i1);
-            int l1 = this.getAoBrightness(brightnessZNeg, brightnessYPosZNeg, brightnessYPos, i1);
-            int i2 = this.getAoBrightness(brightnessYNegZNeg, brightnessYNeg, brightnessZNeg, i1);
-            this.brightnessTopLeft = this.mixAoBrightness(j1, i2, l1, k1, (1.0D - renderMinY) * renderMaxZ, (1.0D - renderMinY) * (1.0D - renderMaxZ), renderMinY * (1.0D - renderMaxZ), renderMinY * renderMaxZ);
-            this.brightnessBottomLeft = this.mixAoBrightness(j1, i2, l1, k1, (1.0D - renderMinY) * renderMinZ, (1.0D - renderMinY) * (1.0D - renderMinZ), renderMinY * (1.0D - renderMinZ), renderMinY * renderMinZ);
-            this.brightnessBottomRight = this.mixAoBrightness(j1, i2, l1, k1, (1.0D - renderMaxY) * renderMinZ, (1.0D - renderMaxY) * (1.0D - renderMinZ), renderMaxY * (1.0D - renderMinZ), renderMaxY * renderMinZ);
-            this.brightnessTopRight = this.mixAoBrightness(j1, i2, l1, k1, (1.0D - renderMaxY) * renderMaxZ, (1.0D - renderMaxY) * (1.0D - renderMaxZ), renderMaxY * (1.0D - renderMaxZ), renderMaxY * renderMaxZ);
+            float aoLightCornerYNegZPos =  (aoLightXPos + aoLightYNeg + aoLightYNegZPos  + aoLightZPos) / 4.0F;
+            float aoLightCornerYNegZNeg =  (aoLightXPos + aoLightYNegZNeg + aoLightYNeg + aoLightZNeg) / 4.0F;
+            float aoLightCornerYPosZNeg = (aoLightXPos + aoLightZNeg + aoLightYPosZNeg + aoLightYPos) / 4.0F;
+            float aoLightCornerYPosZPos = (aoLightXPos + aoLightZPos + aoLightYPos + aoLightYPosZPos) / 4.0F;
+            float f3 = (float)((double)aoLightCornerYNegZPos * (1.0D - renderMinY) * renderMaxZ + (double)aoLightCornerYNegZNeg * (1.0D - renderMinY) * (1.0D - renderMaxZ) + (double)aoLightCornerYPosZNeg * renderMinY * (1.0D - renderMaxZ) + (double)aoLightCornerYPosZPos * renderMinY * renderMaxZ);
+            float f4 = (float)((double)aoLightCornerYNegZPos * (1.0D - renderMinY) * renderMinZ + (double)aoLightCornerYNegZNeg * (1.0D - renderMinY) * (1.0D - renderMinZ) + (double)aoLightCornerYPosZNeg * renderMinY * (1.0D - renderMinZ) + (double)aoLightCornerYPosZPos * renderMinY * renderMinZ);
+            float f5 = (float)((double)aoLightCornerYNegZPos * (1.0D - renderMaxY) * renderMinZ + (double)aoLightCornerYNegZNeg * (1.0D - renderMaxY) * (1.0D - renderMinZ) + (double)aoLightCornerYPosZNeg * renderMaxY * (1.0D - renderMinZ) + (double)aoLightCornerYPosZPos * renderMaxY * renderMinZ);
+            float f6 = (float)((double)aoLightCornerYNegZPos * (1.0D - renderMaxY) * renderMaxZ + (double)aoLightCornerYNegZNeg * (1.0D - renderMaxY) * (1.0D - renderMaxZ) + (double)aoLightCornerYPosZNeg * renderMaxY * (1.0D - renderMaxZ) + (double)aoLightCornerYPosZPos * renderMaxY * renderMaxZ);
+            int brightnessCornerYNegZPos = this.getAoBrightness(brightnessYNeg, brightnessYNegZPos, brightnessZPos, i1);
+            int brightnessCornerYPosZPos = this.getAoBrightness(brightnessZPos, brightnessYPos, brightnessYPosZPos, i1);
+            int brightnessCornerYPosZNeg = this.getAoBrightness(brightnessZNeg, brightnessYPosZNeg, brightnessYPos, i1);
+            int brightnessCornerYNegZNeg = this.getAoBrightness(brightnessYNegZNeg, brightnessYNeg, brightnessZNeg, i1);
+            this.brightnessTopLeft = this.mixAoBrightness(brightnessCornerYNegZPos, brightnessCornerYNegZNeg, brightnessCornerYPosZNeg, brightnessCornerYPosZPos, (1.0D - renderMinY) * renderMaxZ, (1.0D - renderMinY) * (1.0D - renderMaxZ), renderMinY * (1.0D - renderMaxZ), renderMinY * renderMaxZ);
+            this.brightnessBottomLeft = this.mixAoBrightness(brightnessCornerYNegZPos, brightnessCornerYNegZNeg, brightnessCornerYPosZNeg, brightnessCornerYPosZPos, (1.0D - renderMinY) * renderMinZ, (1.0D - renderMinY) * (1.0D - renderMinZ), renderMinY * (1.0D - renderMinZ), renderMinY * renderMinZ);
+            this.brightnessBottomRight = this.mixAoBrightness(brightnessCornerYNegZPos, brightnessCornerYNegZNeg, brightnessCornerYPosZNeg, brightnessCornerYPosZPos, (1.0D - renderMaxY) * renderMinZ, (1.0D - renderMaxY) * (1.0D - renderMinZ), renderMaxY * (1.0D - renderMinZ), renderMaxY * renderMinZ);
+            this.brightnessTopRight = this.mixAoBrightness(brightnessCornerYNegZPos, brightnessCornerYNegZNeg, brightnessCornerYPosZNeg, brightnessCornerYPosZPos, (1.0D - renderMaxY) * renderMaxZ, (1.0D - renderMaxY) * (1.0D - renderMaxZ), renderMaxY * (1.0D - renderMaxZ), renderMaxY * renderMaxZ);
 
             this.colorRedTopLeft = this.colorRedBottomLeft = this.colorRedBottomRight = this.colorRedTopRight = 0.6F;
             this.colorGreenTopLeft = this.colorGreenBottomLeft = this.colorGreenBottomRight = this.colorGreenTopRight = 0.6F;
