@@ -2,6 +2,7 @@ package com.creativemd.littletiles.client.render;
 
 import java.util.ArrayList;
 
+import com.creativemd.littletiles.mixininterfaces.IMixinRenderBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -47,6 +48,7 @@ public class SpecialBlockTilesRenderer extends TileEntitySpecialRenderer
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
             RenderBlocks renderer) {
+        ((IMixinRenderBlocks)renderer).setLittleTiles(true);
         TileEntity tileEntity = world.getTileEntity(x, y, z);
         if (tileEntity instanceof TileEntityLittleTiles) {
             TileEntityLittleTiles little = (TileEntityLittleTiles) tileEntity;
@@ -56,7 +58,7 @@ public class SpecialBlockTilesRenderer extends TileEntitySpecialRenderer
                 BlockRenderHelper.renderCubes(world, cubes, x, y, z, block, renderer, null);
             }
         }
-
+        ((IMixinRenderBlocks)renderer).setLittleTiles(false);
         return true;
     }
 
