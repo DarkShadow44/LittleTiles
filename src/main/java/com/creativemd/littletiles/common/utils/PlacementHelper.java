@@ -61,8 +61,8 @@ public class PlacementHelper {
         return false;
     }
 
-    public ArrayList<PreviewTile> getPreviewTiles(ItemStack stack, MovingObjectPosition moving, boolean customPlacement)
-    {
+    public ArrayList<PreviewTile> getPreviewTiles(ItemStack stack, MovingObjectPosition moving,
+            boolean customPlacement) {
         return getPreviewTiles(
                 stack,
                 moving.blockX,
@@ -114,14 +114,12 @@ public class PlacementHelper {
     }
 
     public ArrayList<PreviewTile> getPreviewTiles(ItemStack stack, int x, int y, int z, Vec3 playerPos, Vec3 hitVec,
-            ForgeDirection side, boolean customPlacement)
-    {
+            ForgeDirection side, boolean customPlacement) {
         return getPreviewTiles(stack, x, y, z, playerPos, hitVec, side, customPlacement, false);
     }
 
     public ArrayList<PreviewTile> getPreviewTiles(ItemStack stack, int x, int y, int z, Vec3 playerPos, Vec3 hitVec,
-            ForgeDirection side, boolean customPlacement, boolean inside)
-    {
+            ForgeDirection side, boolean customPlacement, boolean inside) {
         ArrayList<ShiftHandler> shifthandlers = new ArrayList<>();
         ArrayList<PreviewTile> preview = new ArrayList<>();
         ArrayList<LittleTilePreview> tiles = null;

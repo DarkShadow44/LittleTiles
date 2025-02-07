@@ -129,8 +129,7 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
             return false;
         } else if (y == 255) {
             return false;
-        } else
-        {
+        } else {
             if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) PacketHandler.sendPacketToServer(
                     new LittlePlacePacket(
                             stack,
@@ -318,8 +317,7 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
     }
 
     public boolean placeBlockAt(EntityPlayer player, ItemStack stack, World world, Vec3 playerPos, Vec3 hitVec,
-            PlacementHelper helper, int x, int y, int z, int side, boolean customPlacement)
-    {
+            PlacementHelper helper, int x, int y, int z, int side, boolean customPlacement) {
         ArrayList<PreviewTile> previews = helper.getPreviewTiles(
                 stack,
                 x,

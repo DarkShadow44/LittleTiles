@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.vecmath.Vector2d;
 import javax.vecmath.Vector4d;
 
-import com.creativemd.littletiles.client.render.LittleTilesBlockRenderHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -25,6 +24,7 @@ import com.creativemd.creativecore.common.gui.premade.SubGuiControl;
 import com.creativemd.creativecore.common.utils.CubeObject;
 import com.creativemd.creativecore.common.utils.RotationUtils.Axis;
 import com.creativemd.littletiles.client.render.ITilesRenderer;
+import com.creativemd.littletiles.client.render.LittleTilesBlockRenderHelper;
 import com.creativemd.littletiles.common.utils.small.LittleTileBox;
 
 public class GuiTileViewer extends GuiControl {

@@ -1,12 +1,7 @@
 package com.creativemd.littletiles.client.render;
 
-import com.creativemd.creativecore.client.block.IBlockAccessFake;
-import com.creativemd.creativecore.client.rendering.ExtendedRenderBlocks;
-import com.creativemd.creativecore.client.rendering.RenderHelper3D;
-import com.creativemd.creativecore.common.utils.ColorUtils;
-import com.creativemd.creativecore.common.utils.CubeObject;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -14,9 +9,17 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import org.lwjgl.opengl.GL11;
 
-import java.util.ArrayList;
+import com.creativemd.creativecore.client.block.IBlockAccessFake;
+import com.creativemd.creativecore.client.rendering.ExtendedRenderBlocks;
+import com.creativemd.creativecore.client.rendering.RenderHelper3D;
+import com.creativemd.creativecore.common.utils.ColorUtils;
+import com.creativemd.creativecore.common.utils.CubeObject;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class LittleTilesBlockRenderHelper {
