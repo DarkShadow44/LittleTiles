@@ -56,25 +56,6 @@ public class LittleTileVec {
         this.z -= vec.z;
     }
 
-    public void rotateVec(ForgeDirection direction) {
-        switch (direction) {
-            case UP:
-            case DOWN:
-                int tempY = y;
-                y = x;
-                x = tempY;
-                break;
-            case SOUTH:
-            case NORTH:
-                int tempZ = z;
-                z = x;
-                x = tempZ;
-                break;
-            default:
-                break;
-        }
-    }
-
     public double distanceTo(LittleTileVec vec) {
         return Math.sqrt(Math.pow(vec.x - this.x, 2) + Math.pow(vec.y - this.y, 2) + Math.pow(vec.z - this.z, 2));
     }
