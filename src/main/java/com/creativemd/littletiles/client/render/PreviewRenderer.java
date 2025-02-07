@@ -185,12 +185,7 @@ public class PreviewRenderer {
                                 }
                             }
                             hitVec = hitVec.addVector(newX, newY, newZ);
-                            markedHit = new MovingObjectPosition(
-                                    newX,
-                                    newY,
-                                    newZ,
-                                    look.sideHit,
-                                    hitVec);
+                            markedHit = new MovingObjectPosition(newX, newY, newZ, look.sideHit, hitVec);
                             return;
                         } else markedHit = null;
                     } else if (!GameSettings.isKeyDown(LittleTilesClient.mark)) {
