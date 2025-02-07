@@ -14,17 +14,8 @@ public class LittleTileSize {
     }
 
     public LittleTileSize(byte sizeX, byte sizeY, byte sizeZ) {
-        /*
-         * if(sizeX < 1) sizeX = 1; if(sizeX > 16) sizeX = 16;
-         */
         this.sizeX = sizeX;
-        /*
-         * if(sizeY < 1) sizeY = 1; if(sizeY > 16) sizeY = 16;
-         */
         this.sizeY = sizeY;
-        /*
-         * if(sizeZ < 1) sizeZ = 1; if(sizeZ > 16) sizeZ = 16;
-         */
         this.sizeZ = sizeZ;
     }
 
@@ -84,12 +75,6 @@ public class LittleTileSize {
     public LittleTileSize copy() {
         return new LittleTileSize(sizeX, sizeY, sizeZ);
     }
-
-    /*
-     * public void rotateby(ForgeDirection direction) { switch(direction) { //case EAST: //case WEST: case SOUTH: case
-     * NORTH: set(sizeZ, sizeY, sizeX); break; case UP: set(sizeX, sizeZ, sizeY); break; case DOWN: set(sizeY, sizeX,
-     * sizeZ); break; default: break; } }
-     */
 
     public void rotateSize(ForgeDirection direction) {
         switch (direction) {

@@ -61,12 +61,6 @@ public abstract class BoxShiftHandler extends ShiftHandler {
 
     @Override
     protected LittleTileBox getNewPos(World world, int x, int y, int z, LittleTileBox suggested) {
-        /*
-         * double distance = 2; LittleTileBox nearestBox = null; for (int i = 0; i < boxes.size(); i++) { distance =
-         * Math.min(distance, boxes.get(i).distanceTo(suggested)); nearestBox = boxes.get(i); } if(nearestBox != null) {
-         * LittleTileVec min = nearestBox.getNearstedPointTo(suggested); LittleTileVec max = min.copy(); max.addVec(new
-         * LittleTileVec(1, 1, 1)); return new LittleTileBox(min, max); //LittleTileVec max }
-         */
         return null;
     }
 

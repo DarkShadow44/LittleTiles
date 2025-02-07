@@ -23,18 +23,8 @@ public abstract class ShiftHandler {
     }
 
     public LittleTileBox getNewPosition(World world, int x, int y, int z, LittleTileBox suggested) {
-        /*
-         * suggested.minX *= 16; suggested.minY *= 16; suggested.minZ *= 16; suggested.maxX *= 16; suggested.maxY *= 16;
-         * suggested.maxZ *= 16;
-         */
         LittleTileBox oldBox = suggested.copy();
         LittleTileBox newBox = getNewPos(world, x, y, z, suggested);
-
-        // TileEntity te = world.getTileEntity(x, y, z);
-        // if(te instanceof TileEntityLittleTiles)
-        // if(!((TileEntityLittleTiles)te).isSpaceForLittleTile(newBox.getBox()))
-        // return oldBox;
-
         if (newBox != null) return newBox;
         return oldBox;
     }

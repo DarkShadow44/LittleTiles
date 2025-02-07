@@ -185,27 +185,15 @@ public class LittleTileBox {
         return new LittleTileVec(maxX, maxY, maxZ);
     }
 
-    /*
-     * public void rotateBoxby(ForgeDirection direction) { switch(direction) { case SOUTH: case NORTH: set(minZ, minY,
-     * minX, maxZ, maxY, maxX); break; case UP: set(minX, minZ, minY, maxX, maxZ, maxY); break; case DOWN: set(minY,
-     * minX, minZ, maxY, maxX, maxZ); break; default: break; } }
-     */
-
     public void rotateBoxWithCenter(Rotation direction, Vec3 center) {
         CubeObject cube = this.getCube();
         cube = CubeObject.rotateCube(cube, direction, center);
-        /*
-         * this.minX = (int) Math.round(cube.minX*16); this.minY = (int) Math.round(cube.minY*16); this.minZ = (int)
-         * Math.round(cube.minZ*16); this.maxX = (int) Math.round(cube.maxX*16); this.maxY = (int)
-         * Math.round(cube.maxY*16); this.maxZ = (int) Math.round(cube.maxZ*16);
-         */
         this.minX = (int) (cube.minX * 16);
         this.minY = (int) (cube.minY * 16);
         this.minZ = (int) (cube.minZ * 16);
         this.maxX = (int) (cube.maxX * 16);
         this.maxY = (int) (cube.maxY * 16);
         this.maxZ = (int) (cube.maxZ * 16);
-        // assignCube(cube);
     }
 
     public void flipBox(ForgeDirection direction) {
@@ -241,14 +229,7 @@ public class LittleTileBox {
 
     public void rotateBox(ForgeDirection direction) {
         CubeObject cube = this.getCube();
-        /*
-         * int x = (int) cube.minX; cube.minX -= x; cube.maxX -= x; int y = (int) cube.minY; cube.minY -= y; cube.maxY
-         * -= y; int z = (int) cube.minZ; cube.minZ -= z; cube.maxZ -= z;
-         */
         cube = CubeObject.rotateCube(cube, direction);
-        /*
-         * cube.minX += x; cube.maxX += x; cube.minY += y; cube.maxY += y; cube.minZ += z; cube.maxZ += z;
-         */
         assignCube(cube);
     }
 

@@ -33,15 +33,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class SpecialBlockTilesRenderer extends TileEntitySpecialRenderer
         implements ISimpleBlockRenderingHandler, IItemRenderer {
 
-    /** Used for renderInventoryBlock */
-    public ItemStack currentRenderedStack = null;
-
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
-        /*
-         * try{ LittleTile tile = ItemBlockTiles.getLittleTile(Minecraft.getMinecraft().theWorld, currentRenderedStack);
-         * if(tile != null) renderLittleTileInventory(tile, renderer, false); }catch(Exception e){ }
-         */
+
     }
 
     @Override
@@ -72,7 +66,6 @@ public class SpecialBlockTilesRenderer extends TileEntitySpecialRenderer
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-        currentRenderedStack = item;
         return item.getItem() instanceof ITilesRenderer && item.stackTagCompound != null;
     }
 
@@ -86,7 +79,6 @@ public class SpecialBlockTilesRenderer extends TileEntitySpecialRenderer
         if (item.getItem() instanceof ITilesRenderer) {
             Minecraft mc = Minecraft.getMinecraft();
             GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
-            // GL11.glEnable(GL11.GL_BLEND);
             OpenGlHelper.glBlendFunc(770, 771, 1, 0);
             GL11.glEnable(GL11.GL_LIGHTING);
             GL11.glEnable(GL11.GL_BLEND);
@@ -120,11 +112,6 @@ public class SpecialBlockTilesRenderer extends TileEntitySpecialRenderer
                     cubes,
                     Block.getBlockFromItem(item.getItem()),
                     item.getItemDamage());
-            // ArrayList<LittleTile> tiles = ItemRecipe.loadTiles(Minecraft.getMinecraft().theWorld, item);
-            /*
-             * for (int i = 0; i < tiles.size(); i++) { //renderLittleTileInventory(tiles.get(i), (RenderBlocks)
-             * data[0], true); GL11.glRotatef(270.0F, 0.0F, 1.0F, 0.0F); }
-             */
         }
     }
 

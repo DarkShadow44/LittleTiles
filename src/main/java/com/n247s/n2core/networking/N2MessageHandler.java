@@ -39,11 +39,8 @@ public class N2MessageHandler implements IMessage {
                 if (constructor != null) packet = constructor.newInstance(buf);
                 else packet = clazz.newInstance();
                 System.out.println("");
-                // packet = clazz.newInstance();
-                // packet.readBytes(buf);
             } catch (Exception e) {
                 log.catching(e);
-                return;
             }
         } else log.catching(new Exception("Couldn't find PacketType " + id));
     }

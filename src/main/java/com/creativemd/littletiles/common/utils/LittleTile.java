@@ -29,7 +29,6 @@ import com.creativemd.littletiles.common.utils.small.LittleTileCoord;
 import com.creativemd.littletiles.common.utils.small.LittleTileSize;
 import com.creativemd.littletiles.common.utils.small.LittleTileVec;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -249,15 +248,7 @@ public abstract class LittleTile {
         }
     }
 
-    public void markForUpdate() {
-        if (FMLCommonHandler.instance().getEffectiveSide().isServer()) te.update();
-        else te.updateRender();
-    }
-
     // ================Placing================
-
-    /** return null for any rotation **/
-    public abstract ForgeDirection[] getValidRotation();
 
     /** stack may be null **/
     public void onPlaced(EntityPlayer player, ItemStack stack) {
@@ -272,12 +263,8 @@ public abstract class LittleTile {
     }
 
     public void place() {
-        // LittleTileBox box = new LittleTileBox(getSelectedBox());
         updateCorner();
         te.addTile(this);
-        // te.getWorldObj().playSoundEffect((double)((float)te.xCoord + 0.5F), (double)((float)te.yCoord + 0.5F),
-        // (double)((float)te.zCoord + 0.5F), getSound().func_150496_b(), (getSound().getVolume() + 1.0F) / 2.0F,
-        // getSound().getPitch() * 0.8F);
     }
 
     // ================Destroying================

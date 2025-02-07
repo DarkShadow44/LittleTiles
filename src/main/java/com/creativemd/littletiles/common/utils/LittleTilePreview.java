@@ -19,8 +19,6 @@ public final class LittleTilePreview {
     public LittleTileSize size;
 
     public NBTTagCompound nbt;
-    /// **Used for multiblocks**/
-    // public ArrayList<LittleTilePreview> subTiles = new ArrayList<LittleTilePreview>();
 
     public LittleTileBox box;
 
@@ -43,12 +41,6 @@ public final class LittleTilePreview {
     public LittleTile getLittleTile(TileEntityLittleTiles te) {
         return LittleTile.CreateandLoadTile(te, te.getWorldObj(), nbt);
     }
-
-    /*
-     * public ArrayList<LittleTilePreview> getAllTiles() { ArrayList<LittleTilePreview> tiles = new
-     * ArrayList<LittleTilePreview>(); if(box != null || subTiles.size() == 0) tiles.add(this); for (int i = 0; i <
-     * subTiles.size(); i++) { tiles.addAll(subTiles.get(i).getAllTiles()); } return tiles; }
-     */
 
     public CubeObject getCubeBlock() {
         CubeObject cube = box.getCube();
@@ -83,7 +75,6 @@ public final class LittleTilePreview {
             for (int i = 0; i < count; i++) {
                 LittleTileBox box = new LittleTileBox("bBox" + i, nbt);
                 box.flipBoxWithCenter(direction, null);
-                // box.rotateBox(direction.getRotation(ForgeDirection.UP));
                 box.writeToNBT("bBox" + i, nbt);
             }
         }
@@ -105,7 +96,6 @@ public final class LittleTilePreview {
             for (int i = 0; i < count; i++) {
                 LittleTileBox box = new LittleTileBox("bBox" + i, nbt);
                 box.rotateBox(direction);
-                // box.rotateBox(direction.getRotation(ForgeDirection.UP));
                 box.writeToNBT("bBox" + i, nbt);
             }
         }
