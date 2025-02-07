@@ -113,7 +113,28 @@ public class PlacementHelper {
 
             shifthandlers.add(new InsideShiftHandler());
 
-            LittleTileBox box = getTilesBox(size, pos);
+            boolean fromChisel = stack.stackTagCompound != null && stack.stackTagCompound.hasKey("fromChiselPosX");
+
+            LittleTileBox box = getTilesBox(size, pos, !fromChisel);
+            if (fromChisel) {
+                boolean posX = stack.stackTagCompound.getBoolean("fromChiselPosX");
+                boolean posY = stack.stackTagCompound.getBoolean("fromChiselPosY");
+                boolean posZ = stack.stackTagCompound.getBoolean("fromChiselPosZ");
+                if (posX) {
+                    box.minX -= size.sizeX - 1;
+                    box.maxX -= size.sizeX - 1;
+                }
+
+                if (posY) {
+                    box.minY -= size.sizeY - 1;
+                    box.maxY -= size.sizeY - 1;
+                }
+
+                if (posZ) {
+                    box.minZ -= size.sizeZ - 1;
+                    box.maxZ -= size.sizeZ - 1;
+                }
+            }
             LittleTileVec internalOffset = getInternalOffset(tiles);
             internalOffset.invert();
 
@@ -194,33 +215,35 @@ public class PlacementHelper {
         return preview;
     }
 
-    public LittleTileBox getTilesBox(LittleTileSize size, LittleTileBlockPos pos) {
+    public LittleTileBox getTilesBox(LittleTileSize size, LittleTileBlockPos pos, boolean doCenter) {
         LittleTileVec hit = pos.toHitVecRelative();
-        LittleTileVec center = size.calculateCenter();
-        LittleTileVec centerInv = size.calculateInvertedCenter();
-        switch (pos.getSide()) {
-            case EAST:
-                hit.x += center.x;
-                break;
-            case WEST:
-                hit.x -= centerInv.x - 1;
-                break;
-            case UP:
-                hit.y += center.y;
-                break;
-            case DOWN:
-                hit.y -= centerInv.y - 1;
-                break;
-            case SOUTH:
-                hit.z += center.z;
-                break;
-            case NORTH:
-                hit.z -= centerInv.z - 1;
-                break;
-            default:
-                break;
+        if (doCenter) {
+            LittleTileVec center = size.calculateCenter();
+            LittleTileVec centerInv = size.calculateInvertedCenter();
+            switch (pos.getSide()) {
+                case EAST:
+                    hit.x += center.x;
+                    break;
+                case WEST:
+                    hit.x -= centerInv.x - 1;
+                    break;
+                case UP:
+                    hit.y += center.y;
+                    break;
+                case DOWN:
+                    hit.y -= centerInv.y - 1;
+                    break;
+                case SOUTH:
+                    hit.z += center.z;
+                    break;
+                case NORTH:
+                    hit.z -= centerInv.z - 1;
+                    break;
+                default:
+                    break;
+            }
         }
-        return new LittleTileBox(hit, size);
+        return new LittleTileBox(hit, size, doCenter);
     }
 
     public boolean canBePlacedInsideBlock(int x, int y, int z) {
