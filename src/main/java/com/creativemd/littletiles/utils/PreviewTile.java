@@ -45,7 +45,6 @@ public class PreviewTile {
 
     public LittleTile placeTile(EntityPlayer player, ItemStack stack, TileEntityLittleTiles teLT,
             LittleStructure structure, ArrayList<LittleTile> unplaceableTiles) {
-        // PreviewTile tile = placeTiles.get(j);
         LittleTile LT = preview.getLittleTile(teLT);
         if (LT == null) return null;
 
@@ -70,15 +69,7 @@ public class PreviewTile {
     }
 
     public boolean split(HashMapList<ChunkCoordinates, PreviewTile> tiles, int x, int y, int z) {
-        // box.resort();
-
         if (preview != null && !preview.canSplit && box.needsMultipleBlocks()) return false;
-
-        // if(!box.isValidBox())
-        // System.out.println("Invalid box found!");
-        // int tilesCount = 0;
-        // ArrayList<LittleTileBox> failedBoxes = new ArrayList<LittleTileBox>();
-
         LittleTileSize size = box.getSize();
 
         int offX = box.minX / 16;
@@ -126,22 +117,13 @@ public class PreviewTile {
 
                     if (tile.box.isValidBox()) {
                         tiles.add(new ChunkCoordinates(posX, posY, posZ), tile);
-                        // tilesCount++;
-                    } // else
-                      // failedBoxes.add(tile.box);
+                    }
                     posZ++;
                 }
                 posY++;
             }
             posX++;
         }
-
-        /*
-         * if(tilesCount == 0) { System.out.println("Failed to split box!"); System.out.println("Main Box: " +
-         * box.toString()); for (int i = 0; i < failedBoxes.size(); i++) {
-         * System.out.println(failedBoxes.get(i).toString()); } System.out.println("=============================="); }
-         */
-
         return true;
     }
 

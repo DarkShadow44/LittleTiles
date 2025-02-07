@@ -105,8 +105,6 @@ public class LittleTileTileEntity extends LittleTileBlock {
             tileEntity.xCoord = te.xCoord;
             tileEntity.yCoord = te.yCoord;
             tileEntity.zCoord = te.zCoord;
-            // if(tileEntity.isInvalid())
-            // setInValid();
         }
     }
 

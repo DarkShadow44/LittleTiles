@@ -59,7 +59,6 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
     @SideOnly(Side.CLIENT)
     public String getItemStackDisplayName(ItemStack stack) {
         String result = super.getItemStackDisplayName(stack);
-        // LittleTile tile = getLittleTile(Minecraft.getMinecraft().theWorld, stack);
         if (stack.stackTagCompound != null) {
             result += " (x=" + stack.stackTagCompound.getByte("sizex")
                     + ",y="
@@ -90,11 +89,6 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
 
         MovingObjectPosition moving = Minecraft.getMinecraft().objectMouseOver;
         if (PreviewRenderer.markedHit != null) moving = PreviewRenderer.markedHit;
-
-        // LittleTileSize size = helper.size;
-        // size.rotateSize(PreviewRenderer.direction);
-        // size.rotateSize(PreviewRenderer.direction2);
-        // Vec3 center = helper.getCenterPos(size);
 
         x = moving.blockX;
         y = moving.blockY;
@@ -135,8 +129,7 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
             return false;
         } else if (y == 255) {
             return false;
-        } else// if (world.canPlaceEntityOnSide(helper.tile.block, x, y, z, false, side, player, stack) ||
-              // helper.canBePlacedInside(x, y, z))
+        } else
         {
             if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) PacketHandler.sendPacketToServer(
                     new LittlePlacePacket(
@@ -147,8 +140,7 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
                             y,
                             z,
                             side,
-                            PreviewRenderer.markedHit != null)); // , RotationUtils.getIndex(PreviewRenderer.direction),
-                                                                 // RotationUtils.getIndex(PreviewRenderer.direction2)));
+                            PreviewRenderer.markedHit != null));
 
             if (placeBlockAt(
                     player,
@@ -161,7 +153,7 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
                     y,
                     z,
                     side,
-                    PreviewRenderer.markedHit != null)) // , PreviewRenderer.direction, PreviewRenderer.direction2);
+                    PreviewRenderer.markedHit != null))
                 PreviewRenderer.markedHit = null;
 
             return true;
@@ -184,8 +176,6 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
     @SideOnly(Side.CLIENT)
     public boolean func_150936_a(World world, int x, int y, int z, int side, EntityPlayer player, ItemStack stack) {
         Block block = world.getBlock(x, y, z);
-
-        Minecraft mc = Minecraft.getMinecraft();
 
         MovingObjectPosition moving = Minecraft.getMinecraft().objectMouseOver;
         if (PreviewRenderer.markedHit != null) moving = PreviewRenderer.markedHit;
@@ -226,9 +216,6 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
                             }
                         }
         block = world.getBlock(x, y, z);
-        // helper.posX = x;
-        // helper.posY = y;
-        // helper.posZ = z;
         return block.isReplaceable(world, x, y, z)
                 || PlacementHelper.getInstance(player).canBePlacedInsideBlock(x, y, z);
     }
@@ -263,17 +250,10 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
 
     public static boolean placeTiles(World world, EntityPlayer player, ArrayList<PreviewTile> previews,
             LittleStructure structure, int x, int y, int z, ItemStack stack, ArrayList<LittleTile> unplaceableTiles) {
-        // if(!(world.getBlock(x, y, z) instanceof BlockTile))
-        // if (!world.setBlock(x, y, z, LittleTiles.blockTile, 0, 3))
-        // return false;
 
         HashMapList<ChunkCoordinates, PreviewTile> splitted = getSplittedTiles(previews, x, y, z);
         if (splitted == null) return false;
 
-        /*
-         * int counting = 0; for (int i = 0; i < splitted.size(); i++) { counting += splitted.getValues(i).size(); }
-         * System.out.println("Created " + counting + " of " + previews.size() + " tiles");
-         */
         ArrayList<ChunkCoordinates> coordsToCheck;
         if (structure != null) {
             coordsToCheck = splitted.getKeys();
@@ -284,7 +264,6 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
         ArrayList<SoundType> soundsToBePlayed = new ArrayList<>();
         if (canPlaceTiles(world, splitted, coordsToCheck)) {
             LittleTilePosition pos = null;
-            // LittleTileCoord pos = null;
 
             for (int i = 0; i < splitted.size(); i++) {
                 ChunkCoordinates coord = splitted.getKey(i);
@@ -303,7 +282,6 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
 
                     TileEntity te = world.getTileEntity(coord.posX, coord.posY, coord.posZ);
                     if (te instanceof TileEntityLittleTiles) {
-                        // int tiles = 0;
                         TileEntityLittleTiles teLT = (TileEntityLittleTiles) te;
 
                         for (PreviewTile placeTile : placeTiles) {
@@ -315,7 +293,6 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
                                         structure.mainTile = LT;
                                         LT.isMainBlock = true;
                                         LT.updateCorner();
-                                        // pos = new LittleTileCoord(baseX, baseY, baseZ, coord, LT.cornerVec.copy());
                                         pos = new LittleTilePosition(coord, LT.cornerVec.copy());
                                     } else LT.coord = new LittleTileCoord(teLT, pos.coord, pos.position);
                                 }
@@ -324,10 +301,7 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
 
                         if (structure != null) teLT.combineTiles(structure);
                     }
-                    // System.out.println("Placed " + tiles + "/" + placeTiles.size());
-                } // else
-                  // System.out.println("Couldn't create te at x=" + coord.posX + ",y=" + coord.posY + ",z=" +
-                  // coord.posZ);
+                }
             }
             for (SoundType soundType : soundsToBePlayed) {
                 world.playSoundEffect(
@@ -344,9 +318,7 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
     }
 
     public boolean placeBlockAt(EntityPlayer player, ItemStack stack, World world, Vec3 playerPos, Vec3 hitVec,
-            PlacementHelper helper, int x, int y, int z, int side, boolean customPlacement) // , ForgeDirection
-                                                                                            // direction, ForgeDirection
-                                                                                            // direction2)
+            PlacementHelper helper, int x, int y, int z, int side, boolean customPlacement)
     {
         ArrayList<PreviewTile> previews = helper.getPreviewTiles(
                 stack,
@@ -357,7 +329,7 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
                 hitVec,
                 ForgeDirection.getOrientation(side),
                 customPlacement,
-                true); // , direction, direction2);
+                true);
 
         LittleStructure structure = null;
         if (stack.getItem() instanceof ILittleTile) {
@@ -370,7 +342,6 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
             structure.dropStack = stack.copy();
             structure.setTiles(new ArrayList<>());
         }
-        // System.out.println("Creating " + previews.size() + " tiles");
 
         ArrayList<LittleTile> unplaceableTiles = new ArrayList<>();
         if (placeTiles(world, player, previews, structure, x, y, z, stack, unplaceableTiles)) {
@@ -390,11 +361,6 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
                         WorldUtils.dropItem(world, unplaceableTile.getDrops(), x, y, z);
                 }
             }
-
-            /*
-             * TileEntity tileEntity = world.getTileEntity(x, y, z); if(tileEntity instanceof TileEntityLittleTiles) {
-             * for (int i = 0; i < previews.size(); i++) { PreviewTile tile = previews.get(i); } }
-             */
             return true;
         }
         return false;

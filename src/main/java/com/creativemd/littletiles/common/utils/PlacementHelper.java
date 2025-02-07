@@ -61,11 +61,7 @@ public class PlacementHelper {
         return false;
     }
 
-    public ArrayList<PreviewTile> getPreviewTiles(ItemStack stack, MovingObjectPosition moving, boolean customPlacement) // ,
-                                                                                                                         // ForgeDirection
-                                                                                                                         // rotation,
-                                                                                                                         // ForgeDirection
-                                                                                                                         // rotation2)
+    public ArrayList<PreviewTile> getPreviewTiles(ItemStack stack, MovingObjectPosition moving, boolean customPlacement)
     {
         return getPreviewTiles(
                 stack,
@@ -75,7 +71,7 @@ public class PlacementHelper {
                 player.getPosition(1.0F),
                 moving.hitVec,
                 ForgeDirection.getOrientation(moving.sideHit),
-                customPlacement); // , rotation, rotation2);
+                customPlacement);
     }
 
     public static LittleTileVec getInternalOffset(ArrayList<LittleTilePreview> tiles) {
@@ -118,14 +114,13 @@ public class PlacementHelper {
     }
 
     public ArrayList<PreviewTile> getPreviewTiles(ItemStack stack, int x, int y, int z, Vec3 playerPos, Vec3 hitVec,
-            ForgeDirection side, boolean customPlacement) // , ForgeDirection rotation, ForgeDirection rotation2)
+            ForgeDirection side, boolean customPlacement)
     {
         return getPreviewTiles(stack, x, y, z, playerPos, hitVec, side, customPlacement, false);
     }
 
     public ArrayList<PreviewTile> getPreviewTiles(ItemStack stack, int x, int y, int z, Vec3 playerPos, Vec3 hitVec,
-            ForgeDirection side, boolean customPlacement, boolean inside) // , ForgeDirection rotation, ForgeDirection
-                                                                          // rotation2)
+            ForgeDirection side, boolean customPlacement, boolean inside)
     {
         ArrayList<ShiftHandler> shifthandlers = new ArrayList<>();
         ArrayList<PreviewTile> preview = new ArrayList<>();
@@ -139,12 +134,6 @@ public class PlacementHelper {
         if (tiles != null) {
             LittleTileSize size = getSize(tiles);
 
-            // size.rotateSize(rotation);
-            // size.rotateSize(rotation2);
-            // size.rotateSize(rotation2.getRotation(ForgeDirection.DOWN));
-
-            // size.rotateSize(side);
-
             if (tiles.size() == 1) shifthandlers.addAll(tiles.get(0).shifthandlers);
 
             shifthandlers.add(new InsideShiftHandler());
@@ -152,7 +141,6 @@ public class PlacementHelper {
             LittleTileBox box = getTilesBox(size, hitVec, x, y, z, side, customPlacement, inside);
             LittleTileVec internalOffset = getInternalOffset(tiles);
             internalOffset.invert();
-            // box.addOffset(new LittleTileVec(-LittleTile.maxPos/2, -LittleTile.maxPos/2, -LittleTile.maxPos/2));
 
             boolean canPlaceNormal = false;
 
@@ -232,9 +220,6 @@ public class PlacementHelper {
                         preview.add(new PreviewTile(box.copy(), tile));
                     } else {
                         if (!canPlaceNormal) tile.box.addOffset(offset);
-                        // tile.box.rotateBox(rotation);
-                        // tile.box.rotateBox(rotation2);
-                        // tile.box.rotateBox(rotation2.getRotation(ForgeDirection.DOWN));
                         preview.add(new PreviewTile(tile.box, tile));
                     }
                 }
@@ -242,7 +227,6 @@ public class PlacementHelper {
 
             LittleStructure structure = iTile.getLittleStructure(stack);
             if (structure != null) {
-                // ArrayList<LittleTileBox> highlightedBoxes = structure.getSpecialTiles();
                 ArrayList<PreviewTile> newBoxes = structure.getSpecialTiles();
 
                 for (PreviewTile newBox : newBoxes) {
@@ -250,14 +234,6 @@ public class PlacementHelper {
                 }
 
                 preview.addAll(newBoxes);
-
-                /*
-                 * for (int i = 0; i < highlightedBoxes.size(); i++) { if(!canPlaceNormal)
-                 * highlightedBoxes.get(i).addOffset(offset); //tile.box.rotateBox(rotation);
-                 * //tile.box.rotateBox(rotation2); //tile.box.rotateBox(rotation2.getRotation(ForgeDirection.DOWN));
-                 * PreviewTile previewTile = new PreviewTile(highlightedBoxes.get(i), null); previewTile.color =
-                 * Vec3.createVectorHelper(1, 0, 0); preview.add(previewTile); }
-                 */
             }
         }
 
@@ -269,8 +245,6 @@ public class PlacementHelper {
         LittleTileVec hit = getHitVec(hitVec, x, y, z, side, customPlacement, inside);
         LittleTileVec center = size.calculateCenter();
         LittleTileVec centerInv = size.calculateInvertedCenter();
-        // hit.addVec(center);
-        // Make hit the center of the Box
         switch (side) {
             case EAST:
                 hit.x += center.x;
@@ -318,11 +292,6 @@ public class PlacementHelper {
                     return false;
             }
         }
-        /*
-         * if (block == Blocks.snow_layer && (world.getBlockMetadata(x, y, z) & 7) < 1) { p_77648_7_ = 1; } else if
-         * (block != Blocks.vine && block != Blocks.tallgrass && block != Blocks.deadbush &&
-         * !block.isReplaceable(p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_)) { }
-         */
         return false;
     }
 
@@ -362,41 +331,28 @@ public class PlacementHelper {
             return vec;
         }
         double posX = hitVec.xCoord - x;
-        // if(hitVec.xCoord < 0)
-        // posX = 1-posX;
         double posY = hitVec.yCoord - y;
-        // if(hitVec.yCoord < 0)
-        // posY = 1-posY;
         double posZ = hitVec.zCoord - z;
-        // if(hitVec.zCoord < 0)
-        // posZ = 1-posZ;
         LittleTileVec vec = new LittleTileVec((int) (posX * 16), (int) (posY * 16), (int) (posZ * 16));
         if (!customPlacement && !canBePlacedInside(x, y, z, hitVec, side)) {
             switch (side) {
                 case EAST:
-                    // vec.x = 15;
                     vec.x = 0;
                     break;
                 case WEST:
                     vec.x = 16;
-                    // if(x < 0)
-                    // vec.x = 0;
                     break;
                 case UP:
-                    // vec.y = 15;
                     vec.y = 0;
                     break;
                 case DOWN:
                     vec.y = 16;
                     break;
                 case SOUTH:
-                    // vec.z = 15;
                     vec.z = 0;
                     break;
                 case NORTH:
                     vec.z = 16;
-                    // if(z < 0)
-                    // vec.z = 0;
                     break;
                 default:
                     break;

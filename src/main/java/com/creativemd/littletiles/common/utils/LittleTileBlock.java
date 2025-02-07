@@ -52,11 +52,6 @@ public class LittleTileBlock extends LittleTile {
     }
 
     @Override
-    public ForgeDirection[] getValidRotation() {
-        return null;
-    }
-
-    @Override
     public void copyExtra(LittleTile tile) {
         if (tile instanceof LittleTileBlock) {
             LittleTileBlock thisTile = (LittleTileBlock) tile;
@@ -127,10 +122,7 @@ public class LittleTileBlock extends LittleTile {
 
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
-        // int light = block.getLightValue(world, x, y, z);
-        // if(light == 0)
         return block.getLightValue();
-        // return light;
     }
 
     @Override
