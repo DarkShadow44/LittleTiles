@@ -94,8 +94,10 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
 
         if (needsTwoHits(stack)) {
             if (PreviewRenderer.firstHit == null) {
-                PreviewRenderer.firstHit = pos;
-                return true;
+                if (PreviewRenderer.markedHit == null) {
+                    PreviewRenderer.firstHit = pos;
+                    return true;
+                }
             } else {
                 ILittleTile littleTile = (ILittleTile) stack.getItem();
                 stack = new ItemStack(Item.getItemFromBlock(LittleTiles.blockTile));
@@ -119,8 +121,9 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
             if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
                 PacketHandler.sendPacketToServer(new LittlePlacePacket(stack, pos, PreviewRenderer.markedHit != null));
 
-            if (placeBlockAt(player, stack, world, pos, helper, PreviewRenderer.markedHit != null))
-                PreviewRenderer.markedHit = null;
+            placeBlockAt(player, stack, world, pos, helper, PreviewRenderer.markedHit != null);
+
+            PreviewRenderer.markedHit = null;
 
             return true;
         }

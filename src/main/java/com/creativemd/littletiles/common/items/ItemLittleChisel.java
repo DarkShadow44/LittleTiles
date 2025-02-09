@@ -54,7 +54,6 @@ public class ItemLittleChisel extends Item implements IGuiCreator, ILittleTile {
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
             float hitX, float hitY, float hitZ) {
-        if (stack.stackTagCompound == null) stack.stackTagCompound = new NBTTagCompound();
         return Item.getItemFromBlock(LittleTiles.blockTile)
                 .onItemUse(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
     }
@@ -103,11 +102,16 @@ public class ItemLittleChisel extends Item implements IGuiCreator, ILittleTile {
             size = new LittleTileSize(sizeX, sizeY, sizeZ);
         } else {
             MovingObjectPosition moving = Minecraft.getMinecraft().objectMouseOver;
-            if (moving == null) {
+            LittleTileBlockPos pos = null;
+            if (moving != null) {
+                pos = LittleTileBlockPos.fromMovingObjectPosition(moving);
+            }
+            if (PreviewRenderer.markedHit != null) {
+                pos = PreviewRenderer.markedHit;
+            }
+            if (pos == null) {
                 return null;
             }
-            PlacementHelper helper = new PlacementHelper(Minecraft.getMinecraft().thePlayer);
-            LittleTileBlockPos pos = LittleTileBlockPos.fromMovingObjectPosition(moving);
             LittleTileBlockPos.Subtraction subtraction = pos.subtract(PreviewRenderer.firstHit);
             int sx = Math.max(Math.abs(subtraction.x) + 1, sizeX);
             int sy = Math.max(Math.abs(subtraction.y) + 1, sizeY);

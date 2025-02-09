@@ -60,10 +60,17 @@ public class LittleTileBlockPos {
         if (side == ForgeDirection.NORTH) {
             z -= 1.0 / 16;
         }
-        int subX = (int)Math.floor((x - Math.floor(x)) * 16);
-        int subY = (int)Math.floor((y - Math.floor(y)) * 16);
-        int subZ = (int)Math.floor((z - Math.floor(z)) * 16);
-        return new LittleTileBlockPos((int)Math.floor(x), (int)Math.floor(y), (int)Math.floor(z), subX, subY, subZ, side);
+        int subX = (int) Math.floor((x - Math.floor(x)) * 16);
+        int subY = (int) Math.floor((y - Math.floor(y)) * 16);
+        int subZ = (int) Math.floor((z - Math.floor(z)) * 16);
+        return new LittleTileBlockPos(
+                (int) Math.floor(x),
+                (int) Math.floor(y),
+                (int) Math.floor(z),
+                subX,
+                subY,
+                subZ,
+                side);
     }
 
     public int getPosX() {
