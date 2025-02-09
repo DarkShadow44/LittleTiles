@@ -88,7 +88,7 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
 
         MovingObjectPosition moving = Minecraft.getMinecraft().objectMouseOver;
 
-        LittleTileBlockPos pos = LittleTileBlockPos.fromMovingObjectPosition(helper, moving);
+        LittleTileBlockPos pos = LittleTileBlockPos.fromMovingObjectPosition(moving);
 
         if (PreviewRenderer.markedHit != null) pos = PreviewRenderer.markedHit;
 
@@ -146,7 +146,7 @@ public class ItemBlockTiles extends ItemBlock implements ILittleTile, ITilesRend
         MovingObjectPosition moving = Minecraft.getMinecraft().objectMouseOver;
 
         PlacementHelper helper = PlacementHelper.getInstance(player);
-        LittleTileBlockPos pos = LittleTileBlockPos.fromMovingObjectPosition(helper, moving);
+        LittleTileBlockPos pos = LittleTileBlockPos.fromMovingObjectPosition(moving);
         if (PreviewRenderer.markedHit != null) pos = PreviewRenderer.markedHit;
 
         x = pos.getPosX();

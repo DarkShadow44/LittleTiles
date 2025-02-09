@@ -107,7 +107,7 @@ public class ItemLittleChisel extends Item implements IGuiCreator, ILittleTile {
                 return null;
             }
             PlacementHelper helper = new PlacementHelper(Minecraft.getMinecraft().thePlayer);
-            LittleTileBlockPos pos = LittleTileBlockPos.fromMovingObjectPosition(helper, moving);
+            LittleTileBlockPos pos = LittleTileBlockPos.fromMovingObjectPosition(moving);
             LittleTileBlockPos.Subtraction subtraction = pos.subtract(PreviewRenderer.firstHit);
             int sx = Math.max(Math.abs(subtraction.x) + 1, sizeX);
             int sy = Math.max(Math.abs(subtraction.y) + 1, sizeY);
