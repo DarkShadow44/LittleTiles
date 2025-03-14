@@ -204,7 +204,7 @@ public abstract class MixinRenderBlocks implements IMixinRenderBlocks {
             colorB = f5;
         }
 
-        int i1 = block.colorMultiplier(this.blockAccess, x, y, z);
+        int i1 = block.getMixedBrightnessForBlock(this.blockAccess, x, y, z);
 
         if (this.renderMaxY >= 1.0D || !this.blockAccess.getBlock(x, y + 1, z).isOpaqueCube()) {
             i1 = block.getMixedBrightnessForBlock(this.blockAccess, x, y + 1, z);
