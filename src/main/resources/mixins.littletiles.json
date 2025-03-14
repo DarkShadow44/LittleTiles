@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8.3-GTNH",
+  "package": "com.creativemd.littletiles.mixins",
+  "refmap": "mixins.littletiles.refmap.json",
+  "target": "@env(DEFAULT)",
+  "compatibilityLevel": "JAVA_8",
+  "client": [
+    "MixinRenderBlocks"
+  ]
+}
+
