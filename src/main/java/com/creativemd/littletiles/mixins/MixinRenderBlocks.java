@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.creativemd.littletiles.mixininterfaces.IMixinRenderBlocks;
-import com.creativemd.littletiles.LittleTiles;
 
 @Mixin(value = RenderBlocks.class)
 public abstract class MixinRenderBlocks implements IMixinRenderBlocks {
@@ -163,7 +162,6 @@ public abstract class MixinRenderBlocks implements IMixinRenderBlocks {
                 && this.partialRenderBounds)) {
             return;
         }
-        LittleTiles.Asd();
 
         int x = (int) xIn;
         int y = (int) yIn;

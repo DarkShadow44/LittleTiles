@@ -2,7 +2,6 @@ package com.creativemd.creativecore.client.block;
 
 import java.util.ArrayList;
 
-import com.creativemd.littletiles.mixininterfaces.IMixinRenderBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -17,6 +16,7 @@ import com.creativemd.creativecore.client.rendering.ExtendedRenderBlocks;
 import com.creativemd.creativecore.client.rendering.RenderHelper3D;
 import com.creativemd.creativecore.common.utils.ColorUtils;
 import com.creativemd.creativecore.common.utils.CubeObject;
+import com.creativemd.littletiles.mixininterfaces.IMixinRenderBlocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
