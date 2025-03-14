@@ -1,5 +1,6 @@
 package com.creativemd.littletiles.mixins;
 
+import com.creativemd.littletiles.LittleTiles;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
@@ -15,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.creativemd.littletiles.mixininterfaces.IMixinRenderBlocks;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = RenderBlocks.class)
 public abstract class MixinRenderBlocks implements IMixinRenderBlocks {
@@ -149,11 +151,32 @@ public abstract class MixinRenderBlocks implements IMixinRenderBlocks {
     @Unique
     private boolean littleTiles$isLittleTiles;
 
+    @Shadow
+    public boolean renderAllFaces;
+
     @Override
     public void littleTiles$setLittleTiles(boolean enable) {
         littleTiles$isLittleTiles = enable;
     }
 
+    @Inject(method = "renderStandardBlockWithAmbientOcclusionPartial", at = @At("HEAD"))
+    public void renderStandardBlockWithAmbientOcclusionPartialHead(Block block, int x, int y, int z, float r, float g,
+            float b, CallbackInfoReturnable callback) {
+        Block currentBlock = blockAccess.getBlock(x, y, z);
+        if (currentBlock == LittleTiles.blockTile) {
+            this.renderAllFaces = true;
+            littleTiles$isLittleTiles = true;
+        }
+    }
+
+    @Inject(method = "renderStandardBlockWithAmbientOcclusionPartial", at = @At("TAIL"))
+    public void renderStandardBlockWithAmbientOcclusionPartialTail(Block block, int x, int y, int z, float r, float g,
+            float b, CallbackInfoReturnable callback) {
+        if (littleTiles$isLittleTiles) {
+            this.renderAllFaces = false;
+            littleTiles$isLittleTiles = false;
+        }
+    }
     @Inject(method = "renderFaceYPos", at = @At("HEAD"))
     public void renderFaceYPos(Block block, double xIn, double yIn, double zIn, IIcon texture, CallbackInfo callback) {
 
