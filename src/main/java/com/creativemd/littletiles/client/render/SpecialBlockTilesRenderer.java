@@ -17,7 +17,6 @@ import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
 
-import com.creativemd.creativecore.client.block.BlockRenderHelper;
 import com.creativemd.creativecore.common.utils.CubeObject;
 import com.creativemd.littletiles.client.LittleTilesClient;
 import com.creativemd.littletiles.common.tileentity.TileEntityLittleTiles;
@@ -131,7 +130,7 @@ public class SpecialBlockTilesRenderer extends TileEntitySpecialRenderer
                 GL11.glScaled(scaler, scaler, scaler);
                 GL11.glTranslated(0.5 - largestSide / 2D, 0.5 - largestSide / 2D, 0.5 - largestSide / 2D);
             }
-            BlockRenderHelper.renderInventoryCubes(
+            LittleTilesBlockRenderHelper.renderInventoryCubes(
                     (RenderBlocks) data[0],
                     cubes,
                     Block.getBlockFromItem(item.getItem()),

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.vecmath.Vector2d;
 import javax.vecmath.Vector4d;
 
+import com.creativemd.littletiles.client.render.LittleTilesBlockRenderHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -17,7 +18,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import com.creativemd.creativecore.client.block.BlockRenderHelper;
 import com.creativemd.creativecore.client.rendering.RenderHelper2D;
 import com.creativemd.creativecore.client.rendering.RenderHelper3D;
 import com.creativemd.creativecore.common.gui.controls.GuiControl;
@@ -245,7 +245,7 @@ public class GuiTileViewer extends GuiControl {
         /*
          * for (int k = 0; k < cubes.size(); k++) { RotationUtils.applyCubeRotation(cubes.get(k), viewDirection); }
          */
-        BlockRenderHelper.renderInventoryCubes(
+        LittleTilesBlockRenderHelper.renderInventoryCubes(
                 RenderHelper3D.renderBlocks,
                 cubes,
                 Block.getBlockFromItem(stack.getItem()),

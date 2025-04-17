@@ -9,7 +9,6 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.chunk.Chunk;
 
-import com.creativemd.creativecore.client.block.BlockRenderHelper;
 import com.creativemd.creativecore.client.block.IBlockAccessFake;
 import com.creativemd.creativecore.common.utils.CubeObject;
 import com.creativemd.littletiles.common.tileentity.TileEntityLittleTiles;
@@ -38,7 +37,7 @@ public class LittleBlockRenderHelper {
             // threaded = ((LittleTileBlock) tile).block.getRenderType() == 0;
             // threaded = false;
             if (tile.canBlockBeThreaded()) needThread = true;
-            else BlockRenderHelper.renderCubes(world, cubes, x, y, z, block, renderer, null);
+            else LittleTilesBlockRenderHelper.renderCubes(world, cubes, x, y, z, block, renderer, null);
 
         }
         if (needThread) {
