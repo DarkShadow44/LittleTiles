@@ -84,11 +84,6 @@ public class LittleTilesBlockRenderHelper {
             int meta) {
         Tessellator tesselator = Tessellator.instance;
         for (int i = 0; i < cubes.size(); i++) {
-            /*
-             * if (block.getRenderBlockPass() != 0) { GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
-             * GL11.glEnable(GL11.GL_BLEND); OpenGlHelper.glBlendFunc(770, 771, 1, 0); } else {
-             * GL11.glAlphaFunc(GL11.GL_GREATER, 0.5F); GL11.glDisable(GL11.GL_BLEND); }
-             */
             int metadata = 0;
             if (cubes.get(i).meta != -1) metadata = cubes.get(i).meta;
             Block block = parBlock;
@@ -134,9 +129,6 @@ public class LittleTilesBlockRenderHelper {
             } else {
                 int j = block.getRenderColor(metadata);
                 if (cubes.get(i).color != ColorUtils.WHITE) j = cubes.get(i).color;
-                /*
-                 * boolean defaultColor = cubes.get(i).; if (defaultColor) { j = 16777215; }
-                 */
 
                 float f1 = (float) (j >> 16 & 255) / 255.0F;
                 float f2 = (float) (j >> 8 & 255) / 255.0F;
