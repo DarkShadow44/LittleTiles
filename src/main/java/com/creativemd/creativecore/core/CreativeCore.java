@@ -37,7 +37,7 @@ public class CreativeCore {
     public static CreativeCore instance = new CreativeCore();
 
     public static final String modid = "creativecore";
-    public static final String version = "GRADLETOKEN_VERSION";
+    public static final String version = "1.4";
     public static final Logger logger = LogManager.getLogger(modid);
 
     public static SimpleNetworkWrapper network;
